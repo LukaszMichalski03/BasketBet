@@ -1,4 +1,5 @@
-﻿using BasketBetWebAPI.Interfaces;
+﻿using BasketBetWebAPI.Exceptions;
+using BasketBetWebAPI.Interfaces;
 using BasketBetWebAPI.Models;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
@@ -131,6 +132,61 @@ namespace BasketBetWebAPI.Services
                 await _gamesRepository.UpdateGames( gameDtos );
 
             }
+        }
+        public async Task UpdateGamesResults(DateOnly date)
+        {
+            gameDtos.Clear();
+            string formattedDate = date.ToString("yyyyMMdd");
+            //string UrlNotUpd = "https://www.espn.co.uk/nba/scoreboard/_/date/20240216";
+            string Url = $"https://www.espn.co.uk/nba/scoreboard/_/date/{formattedDate}";
+
+            var web = new HtmlWeb();
+            var document = web.Load(Url);
+
+            var module = document.QuerySelector(".gameModules");
+
+            if (module.LastChild.FirstChild.InnerText != "No games on this date.")
+            {
+                var lis = module.QuerySelectorAll("li");
+                for (int i = 0; i < lis.Count; i += 2)
+                {
+                    int? awayTeamScore;
+                    int? homeTeamScore;
+
+                    var awayTeamName = lis[i].ChildNodes[1].FirstChild.InnerText;
+                    var awayScoreString = lis[i].QuerySelector(".ScoreCell__Score") ?? null;
+                    if (awayScoreString != null)
+                    {
+                        awayTeamScore = int.Parse(awayScoreString.InnerText);
+                    }
+                    else awayTeamScore = null;
+
+                    var homeTeamName = lis[i + 1].ChildNodes[1].FirstChild.InnerText;
+                    var homeScoreString = lis[i].QuerySelector(".ScoreCell__Score") ?? null;
+                    if (homeScoreString != null)
+                    {
+                        homeTeamScore = int.Parse(homeScoreString.InnerText);
+                    }
+                    else homeTeamScore = null;
+
+                    gameDtos.Add(
+                        new GameDto
+                        {
+                            AwayTeamDto = new TeamDto { Name = awayTeamName },
+                            AwayTeamScore = awayTeamScore,
+                            HomeTeamDto = new TeamDto { Name = homeTeamName },
+                            HomeTeamScore = homeTeamScore,
+                            Date = date
+                        }
+                        );
+
+                }
+                await _gamesRepository.UpdateGamesScores(gameDtos);
+            }
+                //throw new NotFoundException($"No games on day {date}");
+
+            //List<GameDto> games = await _gamesRepository.GetGamesByDate(date);
+            
         }
         private double[] CreateOdds(double winPercentageTeam1, double winPercentageTeam2)
         {

@@ -23,5 +23,19 @@ namespace BasketBetWebAPI.Controllers
             await _scrapper.UpdateGames();
             return NoContent();
         }
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateGamesByDate([FromBody] DateOnly date)
+        //{
+
+        //    return NoContent();
+        //}
+
+        [HttpPut("{date}")]
+        public async Task<IActionResult> UpdateScores([FromRoute] DateOnly date)
+        {
+            await _scrapper.UpdateGamesResults(date);
+            return NoContent();
+        }
+
     }
 }

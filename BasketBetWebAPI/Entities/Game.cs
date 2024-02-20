@@ -10,13 +10,13 @@ namespace BasketBetWebAPI.Entities
         public int? HomeTeamId { get; set; }
         
         public virtual Team HomeTeam { get; set; }
-        public int HomeTeamScore { get; set; }
+        public int? HomeTeamScore { get; set; }
         public double OddsHomeTeam { get; set; }
 
         public int? AwayTeamId { get; set; }
         
         public virtual Team AwayTeam { get; set; }
-        public int AwayTeamScore { get; set; }
+        public int? AwayTeamScore { get; set; }
         public double OddsAwayTeam { get; set; }
 
 
