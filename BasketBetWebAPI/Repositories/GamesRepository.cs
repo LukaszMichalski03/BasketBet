@@ -22,12 +22,16 @@ namespace BasketBetWebAPI.Repositories
         {
             List<Game> games = _mapper.Map<List<Game>>(gamesDtos);
 
-            DateOnly dateToCheck = games.First().Date;
-            List<Game> existingGames = await _context.Games.Where(g => g.Date == dateToCheck).ToListAsync();
+            DateOnly dateToCheckFirst = games.First().Date;
+            DateOnly dateToCheckLast = games.Last().Date;
+            List<Game> existingGames = await _context.Games
+                .Where(g => g.Date >= dateToCheckFirst && g.Date <= dateToCheckLast)
+                .ToListAsync();
+
 
             foreach (var game in games)
             {
-                bool gameExistsInMemory = existingGames.Any(g => g.HomeTeamId == game.HomeTeamId && g.AwayTeamId == game.AwayTeamId);
+                bool gameExistsInMemory = existingGames.Any(g => g.HomeTeamId == game.HomeTeamId && g.AwayTeamId == game.AwayTeamId && g.Date == game.Date);
 
                 if (!gameExistsInMemory)
                 {

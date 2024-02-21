@@ -129,9 +129,10 @@ namespace BasketBetWebAPI.Services
                         }
                         );
                 }
-                await _gamesRepository.UpdateGames( gameDtos );
+                
 
             }
+            await _gamesRepository.UpdateGames(gameDtos);
         }
         public async Task UpdateGamesResults(DateOnly date)
         {

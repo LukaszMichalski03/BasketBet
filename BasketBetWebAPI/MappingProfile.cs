@@ -12,7 +12,10 @@ namespace BasketBetWebAPI
             CreateMap<TeamDto, Team>();
 
             CreateMap<Game, GameDto>();
-            CreateMap<GameDto, Game>();
+            CreateMap<GameDto, Game>()
+                .ForMember(g => g.AwayTeamId, x => x.MapFrom(dto => dto.AwayTeamDtoId))
+                .ForMember(g => g.HomeTeamId, x => x.MapFrom(dto => dto.HomeTeamDtoId));
+
         }
     }
 }
