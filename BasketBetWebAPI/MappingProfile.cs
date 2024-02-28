@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BasketBetWebAPI.Entities;
+using BasketBet.EntityFramework.Entities;
 using BasketBetWebAPI.Models;
 
 namespace BasketBetWebAPI

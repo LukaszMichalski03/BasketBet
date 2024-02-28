@@ -1,25 +1,36 @@
 
-using BasketBetWebAPI.Entities;
+using BasketBet.EntityFramework.Data;
 using BasketBetWebAPI.Interfaces;
 using BasketBetWebAPI.Middleware;
 using BasketBetWebAPI.Repositories;
 using BasketBetWebAPI.Services;
+using BasketBet.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
 
 namespace BasketBetWebAPI
 {
+    //https://stackoverflow.com/questions/60407040/how-to-add-migration-in-the-multi-project-solution kilka projektow migracje
+    // https://medium.com/swlh/creating-a-multi-project-net-core-database-solution-a69decdf8d7e
     public class Program
-    {
+    {        
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("default");
+
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            var appSettingsPath = Path.Combine(basePath, "appsettings.json");
+            var databaseSettingsPath = Path.Combine(Directory.GetParent(basePath).FullName, "BasketBet.EntityFramework", "databasesettings.json");
+
+            builder.Configuration
+                .SetBasePath(basePath)
+                .AddJsonFile(appSettingsPath, optional: false, reloadOnChange: true)
+                .AddJsonFile(databaseSettingsPath, optional: false, reloadOnChange: true);
             // Add services to the container.
-            builder.Services.AddDbContext<DataContext>(
-                options => options.UseSqlServer(connectionString)
-            );
+
+            builder.Services.RegisterDataServices(builder.Configuration);
+
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
             builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 

@@ -3,6 +3,7 @@ using BasketBetWebAPI.Interfaces;
 using BasketBetWebAPI.Models;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
+using System;
 using System.Globalization;
 
 namespace BasketBetWebAPI.Services
@@ -25,6 +26,7 @@ namespace BasketBetWebAPI.Services
             teamDtos = new List<TeamDto>();
             gameDtos = new List<GameDto>();
         }
+        
         public async Task UpdateTable()
         {
             teamDtos.Clear();
@@ -134,6 +136,63 @@ namespace BasketBetWebAPI.Services
             }
             await _gamesRepository.UpdateGames(gameDtos);
         }
+        public async Task UpdateGamesFromDate(DateOnly date)
+        {
+            gameDtos.Clear();
+
+            string formattedDate = date.ToString("yyyyMMdd");
+            string Url = $"https://www.espn.co.uk/nba/fixtures/_/date/{formattedDate}";
+            var web = new HtmlWeb();
+            var document = web.Load(Url);
+
+            var tables = document.QuerySelectorAll("table.schedule");
+            var captions = document.QuerySelectorAll("h2.table-caption");
+
+            for (int i = 0; i < tables.Count; i++)
+            {
+                if (tables[i].InnerText == "No games scheduled") continue;
+
+                string dateFormatSingle = "dddd, d MMMM";
+                string dateFormatDouble = "dddd, dd MMMM";
+                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+
+                DateTime parsedDate;
+                DateOnly dateOnly;
+                if (DateTime.TryParseExact(captions[i].InnerText, dateFormatSingle, culture, DateTimeStyles.None, out parsedDate))
+                {
+                    dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);                    
+                }
+                else if (DateTime.TryParseExact(captions[i].InnerText, dateFormatDouble, culture, DateTimeStyles.None, out parsedDate))
+                {
+                    dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);                    
+                }
+                else
+                {
+                    continue;
+                }
+
+                foreach (var tr in tables[i].LastChild.ChildNodes)
+                {
+                    var awayTeamDto = await _teamsRepository.GetByName(tr.FirstChild.LastChild.FirstChild.InnerText);
+                    var homeTeamDto = await _teamsRepository.GetByName(tr.ChildNodes[1].FirstChild.LastChild.FirstChild.InnerText);
+                    var Odds = CreateOdds(awayTeamDto.WinningPercentage, homeTeamDto.WinningPercentage);
+
+                    gameDtos.Add(new GameDto
+                    {
+                        Date = dateOnly,
+                        AwayTeamDto = awayTeamDto,
+                        AwayTeamDtoId = awayTeamDto.Id,
+                        OddsAwayTeam = Odds[0],
+                        HomeTeamDto = homeTeamDto,
+                        HomeTeamDtoId = homeTeamDto.Id,
+                        OddsHomeTeam = Odds[1],
+                    });
+                }
+            }
+
+            await _gamesRepository.UpdateGames(gameDtos);
+        }
+
         public async Task UpdateGamesResults(DateOnly date)
         {
             gameDtos.Clear();
@@ -163,7 +222,7 @@ namespace BasketBetWebAPI.Services
                     else awayTeamScore = null;
 
                     var homeTeamName = lis[i + 1].ChildNodes[1].FirstChild.InnerText;
-                    var homeScoreString = lis[i].QuerySelector(".ScoreCell__Score") ?? null;
+                    var homeScoreString = lis[i+1].QuerySelector(".ScoreCell__Score") ?? null;
                     if (homeScoreString != null)
                     {
                         homeTeamScore = int.Parse(homeScoreString.InnerText);

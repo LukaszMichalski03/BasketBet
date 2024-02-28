@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "default": "Server=(localdb)\\Local;Database=BasketBetDB;Trusted_Connection=True;"
+  }
+}

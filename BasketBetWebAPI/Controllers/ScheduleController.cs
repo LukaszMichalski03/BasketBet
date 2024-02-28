@@ -9,28 +9,26 @@ namespace BasketBetWebAPI.Controllers
     public class ScheduleController : ControllerBase
     {
         private readonly Scrapper _scrapper;
-        private readonly IGamesRepository _gamesRepository;
 
-        public ScheduleController(Scrapper scrapper,IGamesRepository gamesRepository)
+        public ScheduleController(Scrapper scrapper)
         {
             _scrapper = scrapper;
-            _gamesRepository = gamesRepository;
         }
-
+        [HttpPut("{date}")]
+        public async Task<IActionResult> UpdateGamesFromDate([FromRoute] DateOnly date)
+        {
+            await _scrapper.UpdateGamesFromDate(date);
+            return NoContent();
+        }
         [HttpPut]
         public async Task<IActionResult> Refresh()
         {
             await _scrapper.UpdateGames();
             return NoContent();
         }
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateGamesByDate([FromBody] DateOnly date)
-        //{
+        
 
-        //    return NoContent();
-        //}
-
-        [HttpPut("{date}")]
+        [HttpPut("scores/{date}")]
         public async Task<IActionResult> UpdateScores([FromRoute] DateOnly date)
         {
             await _scrapper.UpdateGamesResults(date);

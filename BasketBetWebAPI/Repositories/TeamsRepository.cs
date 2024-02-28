@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using BasketBetWebAPI.Entities;
+using BasketBet.EntityFramework.Data;
+using BasketBet.EntityFramework.Entities;
 using BasketBetWebAPI.Exceptions;
 using BasketBetWebAPI.Interfaces;
 using BasketBetWebAPI.Models;

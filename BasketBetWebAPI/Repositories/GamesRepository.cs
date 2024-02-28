@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using BasketBetWebAPI.Entities;
+using BasketBet.EntityFramework.Data;
+using BasketBet.EntityFramework.Entities;
 using BasketBetWebAPI.Exceptions;
 using BasketBetWebAPI.Interfaces;
 using BasketBetWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BasketBetWebAPI.Repositories
 {

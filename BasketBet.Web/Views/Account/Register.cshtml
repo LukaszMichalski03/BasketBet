@@ -1,0 +1,52 @@
+﻿@using BasketBet.Web.ViewModels
+@model RegisterVM
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="form-box">
+    
+    <div class="login-container" id="login">
+        <div class="top">
+            <span>Already have an account? <a asp-action="Login">Login</a></span>
+            <header class="header-log-reg">Register</header>
+        </div>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="input-box">
+                <input asp-for="Username" class="input-field" placeholder="Username">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <input asp-for="Email" class="input-field" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="input-box">
+                <input asp-for="Password" type="password" class="input-field" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <input asp-for="ConfirmPassword" type="password" class="input-field" placeholder="Confirm Password">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Sign In">
+            </div>
+            <div class="two-col">
+                <div class="one">
+                    <input type="checkbox" id="login-check">
+                    <label for="login-check">Remember Me</label>
+                </div>
+
+            </div>
+        </form>
+        
+    </div>
+
+
+</div>

@@ -1,0 +1,15 @@
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\bin\Debug\net8.0\BasketBet.EntityFramework.deps.json
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\bin\Debug\net8.0\BasketBet.EntityFramework.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\bin\Debug\net8.0\BasketBet.EntityFramework.pdb
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.AssemblyInfoInputs.cache
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.AssemblyInfo.cs
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.csproj.CoreCompileInputs.cache
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.sourcelink.json
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\refint\BasketBet.EntityFramework.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.pdb
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\ref\BasketBet.EntityFramework.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\bin\Debug\net8.0\BasketBet.EntityFramework.runtimeconfig.json
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.csproj.AssemblyReference.cache
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.EntityFramework\obj\Debug\net8.0\BasketBet.EntityFramework.genruntimeconfig.cache

@@ -1,3 +1,5 @@
+using BasketBet.EntityFramework;
+
 namespace BasketBet.Web
 {
     public class Program
@@ -6,8 +8,20 @@ namespace BasketBet.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            var appSettingsPath = Path.Combine(basePath, "appsettings.json");
+            var databaseSettingsPath = Path.Combine(Directory.GetParent(basePath).FullName, "BasketBet.EntityFramework", "databasesettings.json");
+
+            builder.Configuration
+                .SetBasePath(basePath)
+                .AddJsonFile(appSettingsPath, optional: false, reloadOnChange: true)
+                .AddJsonFile(databaseSettingsPath, optional: false, reloadOnChange: true);
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.RegisterDataServices(builder.Configuration);
+
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             var app = builder.Build();
 

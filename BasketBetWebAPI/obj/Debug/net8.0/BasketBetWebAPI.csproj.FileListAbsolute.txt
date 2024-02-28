@@ -142,3 +142,13 @@ C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\obj\Debug\net8.0\
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\obj\Debug\net8.0\BasketBetWebAPI.genruntimeconfig.cache
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\obj\Debug\net8.0\ref\BasketBetWebAPI.dll
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\HtmlAgilityPack.CssSelectors.NetCore.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\BasketBet.EntityFramework.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\BasketBet.EntityFramework.pdb
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBetWebAPI\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll

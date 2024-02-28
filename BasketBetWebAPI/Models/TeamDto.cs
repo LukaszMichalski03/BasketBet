@@ -1,5 +1,4 @@
-﻿using BasketBetWebAPI.Entities;
-
+﻿
 namespace BasketBetWebAPI.Models
 {
     public class TeamDto
