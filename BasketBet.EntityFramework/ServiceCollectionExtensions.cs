@@ -31,6 +31,7 @@ namespace BasketBet.EntityFramework
                 options.Password.RequiredLength = 5;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
             })
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
