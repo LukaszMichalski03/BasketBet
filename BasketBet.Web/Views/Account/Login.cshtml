@@ -1,4 +1,13 @@
-﻿<!----------------------------- Form box ----------------------------------->
+﻿@using BasketBet.Web.ViewModels
+@model LoginVM
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login";
+}
+
 <div class="form-box">
 
     <!------------------- login form -------------------------->
@@ -8,26 +17,30 @@
             <span>Don't have an account? <a href="#" >Sign Up</a></span>
             <header class="header-log-reg">Login</header>
         </div>
-        <div class="input-box">
-            <input type="text" class="input-field" placeholder="Username or Email">
-            <i class="bx bx-user"></i>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password">
-            <i class="bx bx-lock-alt"></i>
-        </div>
-        <div class="input-box">
-            <input type="submit" class="submit" value="Sign In">
-        </div>
-        <div class="two-col">
-            <div class="one">
-                <input type="checkbox" id="login-check">
-                <label for="login-check"> Remember Me</label>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="input-box">
+                <input asp-for="Email" class="input-field" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="two">
-                <label><a href="#">Forgot password?</a></label>
+            <div class="input-box">
+                <input asp-for="Password" type="password" class="input-field" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-        </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Sign In">
+            </div>
+            <div class="two-col">
+                <div class="one">
+                    <input asp-for="RememberMe" type="checkbox" id="login-check">
+                    <label for="login-check"> Remember Me</label>
+                </div>
+                <div class="two">
+                    <label><a href="#">Forgot password?</a></label>
+                </div>
+            </div>
+        </form>
+        
     </div>
 
     
@@ -35,17 +48,5 @@
     
 
 
-<script>
 
-    function myMenuFunction() {
-        var i = document.getElementById("navMenu");
-
-        if (i.className === "nav-menu") {
-            i.className += " responsive";
-        } else {
-            i.className = "nav-menu";
-        }
-    }
-
-</script>
 

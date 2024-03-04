@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/BasketBet.Web.styles.css" asp-append-version="true" />
 </head>
 <body> 
-    <header>
+   
         <nav class="nav">
             <div class="nav-logo">
                 <p>LOGO .</p>
@@ -29,10 +29,13 @@
 
             </div>
             <div class="nav-menu-btn">
-                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+                <i class="bx bx-menu" onclick="myMenuFunction()">
+                <img width="40" height="40" src="https://cdn-icons-png.flaticon.com/128/4254/4254068.png" />
+                </i>
             </div>
         </nav>
-    </header>
+        
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -47,6 +50,19 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+
+        function myMenuFunction() {
+            var i = document.getElementById("navMenu");
+
+            if (i.className === "nav-menu") {
+                i.className += " responsive";
+            } else {
+                i.className = "nav-menu";
+            }
+        }
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

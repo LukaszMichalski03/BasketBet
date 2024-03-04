@@ -26,6 +26,9 @@ namespace BasketBet.EntityFramework
             // Rejestruj Identity Framework
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
@@ -36,6 +39,10 @@ namespace BasketBet.EntityFramework
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromMinutes(30);
+            });
             // Dodaj dodatkowe konfiguracje Identity Framework, jeśli są potrzebne
 
             return services;
