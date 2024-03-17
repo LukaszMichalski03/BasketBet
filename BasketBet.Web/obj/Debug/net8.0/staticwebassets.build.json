@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/vvmwXeGOv9RUTG+kp6T4CvsS1Qxph15Cy0x1eV83aI=",
+  "Hash": "SnL6fknk0ylyLlCJYvhFvR5JmPwRwttC+pbUpVul/Xk=",
   "Source": "BasketBet.Web",
   "BasePath": "_content/BasketBet.Web",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\icons\\bin.png",
+      "SourceId": "BasketBet.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\",
+      "BasePath": "_content/BasketBet.Web",
+      "RelativePath": "icons/bin.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\bin.png"
     },
     {
       "Identity": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\js\\site.js",

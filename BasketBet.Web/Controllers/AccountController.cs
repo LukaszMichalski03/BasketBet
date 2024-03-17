@@ -88,5 +88,11 @@ namespace BasketBet.Web.Controllers
             }
             return View(registerVM);
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

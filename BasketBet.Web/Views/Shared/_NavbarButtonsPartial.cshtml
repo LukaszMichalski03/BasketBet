@@ -1,0 +1,24 @@
+﻿@using BasketBet.EntityFramework.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> signInManager
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="nav-button">
+    @if (signInManager.IsSignedIn(User))
+    {
+        <a asp-controller="Account" asp-action="LogOut" class="btn ">Log Out</a>
+        
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn white-btn">Sign In</a>
+
+        <a asp-controller="Account" asp-action="Register" class="btn ">Sign Up</a>
+    }
+
+
+</div>

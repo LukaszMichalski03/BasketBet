@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\icons\\bin.png",
+      "PackagePath": "staticwebassets\\icons\\bin.png"
+    },
+    {
       "Id": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

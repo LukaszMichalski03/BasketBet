@@ -1,4 +1,6 @@
 using BasketBet.EntityFramework;
+using BasketBet.Web.Interfaces;
+using BasketBet.Web.Repositories;
 
 namespace BasketBet.Web
 {
@@ -17,6 +19,7 @@ namespace BasketBet.Web
                 .AddJsonFile(appSettingsPath, optional: false, reloadOnChange: true)
                 .AddJsonFile(databaseSettingsPath, optional: false, reloadOnChange: true);
             // Add services to the container.
+            builder.Services.AddScoped<IGamesRepository, GamesRepository>();
             builder.Services.AddControllersWithViews();
 
             builder.Services.RegisterDataServices(builder.Configuration);

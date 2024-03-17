@@ -1,12 +1,74 @@
-﻿
+﻿@using BasketBet.Web.ViewModels
+@using Newtonsoft.Json
+@model HomeVM
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
-    
+<div class="container-wrapper">
+    <div class="container-white">
+        @foreach (var match in Model.Matches)
+        {
+            <div class="flex-container">
+                <div class="date-container">
+                    <p class="date-text">@match.Date.ToString("dd.MM.yyyy")</p>
+                </div>
+                <div class="content-container">
+                    <div class="teams-column">
+                        <div class="flex-content">
+                            <p>@match.HomeTeamVM.Name</p>
+                            <span>godzina</span> <!-- Uzupełnij ten obszar o rzeczywistą godzinę -->
+                            <p>@match.AwayTeamVM.Name</p>
+                        </div>
+                    </div>
+                    <div class="buttons-column">
+                        <div class="flex-buttons">
+                            <button class="btn white-btn" onclick="toggleBet('@JsonConvert.SerializeObject(match)', 'Home', this)">
+                                <p>@match.HomeTeamVM.Name</p>
+                                <span>@match.OddsHomeTeam</span> <!-- Tutaj możesz umieścić rzeczywiste kursy -->
+                            </button>
+                            <button class="btn white-btn" onclick="toggleBet('@JsonConvert.SerializeObject(match)', 'Away', this)">
+                                <p>@match.AwayTeamVM.Name</p>
+                                <span>@match.OddsAwayTeam</span> <!-- Tutaj możesz umieścić rzeczywiste kursy -->
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <form id="blueContainer" method="post" asp-action="CreateBet" asp-controller="Home">
+        <div class="container-blue">
+            <div class="container-blue-header">
+                <p>@Model.Bets.Count zdarzeń</p>
+                <button type="button" class="btn btn-danger" onclick="clearBets()">Clear</button>
+            </div>
+            <div class="container-blue-overflow" id="betContainerOverflow">
+                <!-- wyswietlane elementy z listy js-->
+            </div>
+
+            <div class="container-blue-footer">
+                <div class="con-footer-row">
+                    <div class="con-footer-row-left">
+                        <input type="number" placeholder="Points" />
+                    </div>
+                    <p class="totalcourse">50.23</p>
+                </div>
+                <div class="con-footer-row">
+                    <p>Potential Winnings</p>
+                    <p class="total-winning">123,23 zł</p>
+                </div>
+                <div class="con-footer-row">
+                    <button type="button" class="bet-button" onclick="sendBetsToController()">Bet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
 </div>
+
+<script src="~/js/site.js"></script>

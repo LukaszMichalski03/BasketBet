@@ -100,7 +100,33 @@ namespace BasketBetWebAPI.Services
             var document = web.Load(_statsUrl);
 
             var tables = document.QuerySelectorAll("table.schedule");
-            var captions = document.QuerySelectorAll("h2.table-caption");
+            List<string> captions = new();
+
+
+            var parent = tables[0].ParentNode.ParentNode;
+
+            var children = parent.ChildNodes;
+
+            for (int j = 1; j < children.Count; j++)
+            {
+                var currentElement = children[j];
+
+                if (currentElement.Name == "div")
+                {
+                    var spanIndex = j - 1;
+                    if (spanIndex >= 0 && children[spanIndex].Name == "span")
+                    {
+                        var spanText = children[spanIndex].InnerText;
+                        captions.Add(spanText);
+
+                        var nextElementIndex = j + 1;
+                        if (nextElementIndex < children.Count && children[nextElementIndex].Name == "div")
+                        {
+                            captions.Add(spanText);
+                        }
+                    }
+                }
+            }
 
             for (int i = 0; i < tables.Count; i++)
             {
@@ -112,12 +138,11 @@ namespace BasketBetWebAPI.Services
 
                 DateTime parsedDate;
                 DateOnly dateOnly;
-
-                if (DateTime.TryParseExact(captions[i].InnerText, dateFormatSingle, culture, DateTimeStyles.None, out parsedDate))
+                if (DateTime.TryParseExact(captions[i], dateFormatSingle, culture, DateTimeStyles.None, out parsedDate))
                 {
                     dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);
                 }
-                else if (DateTime.TryParseExact(captions[i].InnerText, dateFormatDouble, culture, DateTimeStyles.None, out parsedDate))
+                else if (DateTime.TryParseExact(captions[i], dateFormatDouble, culture, DateTimeStyles.None, out parsedDate))
                 {
                     dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);
                 }
@@ -125,9 +150,12 @@ namespace BasketBetWebAPI.Services
                 {
                     continue;
                 }
+                var trs = tables[i].SelectNodes(".//tr");
 
-                foreach (var tr in tables[i].LastChild.ChildNodes)
+
+                for (int j = 1; j < trs.Count; j++)
                 {
+                    var tr = trs[j];
                     var awayTeamDto = await _teamsRepository.GetByName(tr.FirstChild.LastChild.FirstChild.InnerText);
                     var homeTeamDto = await _teamsRepository.GetByName(tr.ChildNodes[1].FirstChild.LastChild.FirstChild.InnerText);
                     var Odds = CreateOdds(awayTeamDto.WinningPercentage, homeTeamDto.WinningPercentage);
@@ -143,6 +171,8 @@ namespace BasketBetWebAPI.Services
                         OddsHomeTeam = Odds[1],
                     });
                 }
+
+
             }
             await _gamesRepository.UpdateGames(gameDtos);
         }
@@ -157,7 +187,39 @@ namespace BasketBetWebAPI.Services
             var document = web.Load(Url);
 
             var tables = document.QuerySelectorAll("table.schedule");
-            var captions = document.QuerySelectorAll("h2.table-caption");
+
+            List<string> captions = new ();
+
+            
+            var parent = tables[0].ParentNode.ParentNode;
+
+            var children = parent.ChildNodes;
+
+            for (int j = 1; j < children.Count; j++)
+            {
+                var currentElement = children[j];
+
+                if (currentElement.Name == "div")
+                {
+                    var spanIndex = j - 1;
+                    if (spanIndex >= 0 && children[spanIndex].Name == "span")
+                    {
+                        var spanText = children[spanIndex].InnerText;
+                        captions.Add(spanText);
+
+                        var nextElementIndex = j + 1;
+                        if (nextElementIndex < children.Count && children[nextElementIndex].Name == "div")
+                        {
+                            captions.Add(spanText);
+                        }
+                    }
+                }
+            }
+            
+
+
+
+           // var captions = document.QuerySelectorAll("h2.table-caption");
 
             for (int i = 0; i < tables.Count; i++)
             {
@@ -169,11 +231,11 @@ namespace BasketBetWebAPI.Services
 
                 DateTime parsedDate;
                 DateOnly dateOnly;
-                if (DateTime.TryParseExact(captions[i].InnerText, dateFormatSingle, culture, DateTimeStyles.None, out parsedDate))
+                if (DateTime.TryParseExact(captions[i], dateFormatSingle, culture, DateTimeStyles.None, out parsedDate))
                 {
                     dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);                    
                 }
-                else if (DateTime.TryParseExact(captions[i].InnerText, dateFormatDouble, culture, DateTimeStyles.None, out parsedDate))
+                else if (DateTime.TryParseExact(captions[i], dateFormatDouble, culture, DateTimeStyles.None, out parsedDate))
                 {
                     dateOnly = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);                    
                 }
@@ -181,9 +243,12 @@ namespace BasketBetWebAPI.Services
                 {
                     continue;
                 }
+                var trs = tables[i].SelectNodes(".//tr");
 
-                foreach (var tr in tables[i].LastChild.ChildNodes)
+                
+                for (int j = 1; j < trs.Count; j++)
                 {
+                    var tr = trs[j];
                     var awayTeamDto = await _teamsRepository.GetByName(tr.FirstChild.LastChild.FirstChild.InnerText);
                     var homeTeamDto = await _teamsRepository.GetByName(tr.ChildNodes[1].FirstChild.LastChild.FirstChild.InnerText);
                     var Odds = CreateOdds(awayTeamDto.WinningPercentage, homeTeamDto.WinningPercentage);
@@ -199,6 +264,8 @@ namespace BasketBetWebAPI.Services
                         OddsHomeTeam = Odds[1],
                     });
                 }
+                
+
             }
 
             await _gamesRepository.UpdateGames(gameDtos);
@@ -254,9 +321,6 @@ namespace BasketBetWebAPI.Services
                 }
                 await _gamesRepository.UpdateGamesScores(gameDtos);
             }
-                //throw new NotFoundException($"No games on day {date}");
-
-            //List<GameDto> games = await _gamesRepository.GetGamesByDate(date);
             
         }
         private double[] CreateOdds(double winPercentageTeam1, double winPercentageTeam2)

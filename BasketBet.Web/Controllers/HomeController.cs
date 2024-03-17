@@ -1,3 +1,4 @@
+using BasketBet.Web.Interfaces;
 using BasketBet.Web.Models;
 using BasketBet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,19 +11,22 @@ namespace BasketBet.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly IGamesRepository _gamesRepository;
         private readonly HttpClient _client;
         Uri baseAddress = new Uri("https://localhost:7041");
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGamesRepository gamesRepository)
         {
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
             _logger = logger;
+            this._gamesRepository = gamesRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            HomeVM vm = new HomeVM();
+            vm.Matches = await _gamesRepository.GetRecentGames();
+            return View(vm);
         }
         [HttpGet]
         public IActionResult Table()

@@ -10,7 +10,7 @@
 </head>
 <body> 
    
-        <nav class="nav">
+        <nav class="nav" id="navBar">
             <div class="nav-logo">
                 <p>LOGO .</p>
             </div>
@@ -22,12 +22,13 @@
                     <li><a href="#" class="link">About</a></li>
                 </ul>
             </div>
-            <div class="nav-button">
+            <partial name="_NavbarButtonsPartial"/>
+            @* <div class="nav-button">
                 <a asp-controller="Account" asp-action="Login" class="btn white-btn">Sign In</a>
 
                 <a asp-controller="Account" asp-action="Register" class="btn ">Sign Up</a>
 
-            </div>
+            </div> *@
             <div class="nav-menu-btn">
                 <i class="bx bx-menu" onclick="myMenuFunction()">
                 <img width="40" height="40" src="https://cdn-icons-png.flaticon.com/128/4254/4254068.png" />
@@ -36,8 +37,8 @@
         </nav>
         
     
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container-fluid mt-13">
+        <main role="main" class="pb-0 ">
             @RenderBody()
         </main>
     </div>

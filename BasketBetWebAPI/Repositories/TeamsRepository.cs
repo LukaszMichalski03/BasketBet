@@ -30,7 +30,7 @@ namespace BasketBetWebAPI.Repositories
             var teams = _mapper.Map<List<Team>>(teamsDtos);
             foreach (var team in teams)
             {
-                Team? item = _context.Teams.FirstOrDefault(t => t.Name == team.Name && t.Wins == team.Wins && t.Looses == team.Looses);
+                Team? item = _context.Teams.FirstOrDefault(t => t.Name == team.Name);
                 if (item != null)
                 {
                     item.Name = team.Name;

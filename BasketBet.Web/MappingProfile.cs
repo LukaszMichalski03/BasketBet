@@ -8,7 +8,15 @@ namespace BasketBet.Web
     {
         public MappingProfile()
         {
-            
+            CreateMap<TeamVM, Team>();
+            CreateMap<Team, TeamVM>();
+
+            CreateMap<Game, GameVM>();
+            CreateMap<GameVM, Game>()
+                .ForMember(g => g.AwayTeamId, x => x.MapFrom(dto => dto.AwayTeamVMId))
+                .ForMember(g => g.HomeTeamId, x => x.MapFrom(dto => dto.HomeTeamVMId));
+
+           
         }
     }
 }

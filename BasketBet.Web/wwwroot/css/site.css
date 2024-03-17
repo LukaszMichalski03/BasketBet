@@ -13,14 +13,20 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow: hidden;
+    margin: 0;
 }
-.container{
+.container {
+    width: 100%;
     margin-top: 100px;
     min-height: 90vh;
+    
 }
-main{
-    min-height: 90vh;
+
+main {
+    margin: 0px 30px;
+}
+.mt-13{
+    margin-top: 130px;
 }
 .wrapper {
     display: flex;
@@ -41,7 +47,10 @@ main{
     background: linear-gradient(rgba(39,39,39, 0.6), transparent);
     z-index: 100;
 }
-
+.navbar-scrolled {
+    background-color: #2b2b2b;
+    transition: background-color 0.3s ease;
+}
 .nav-logo p {
     color: white;
     font-size: 25px;
@@ -97,8 +106,19 @@ main{
 .btn.white-btn {
     opacity:100%;
     background: #1D428A;
+    width: 220px;
+}
+/*asds*/
+.white-btn span {
+    font-weight: 600;
+    font-size: 20px;
 }
 
+.white-btn p {
+    font-size: 15px;
+    margin: 0;
+}
+/*asds*/
 .btn.btn.white-btn:hover {
     background: #2b5099;
 }
@@ -235,6 +255,262 @@ header {
         text-decoration: underline;
     }
 
+
+.container-wrapper {
+    margin: 130px 5% 70px 5%;
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+}
+
+.container-white {
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px 15px;
+    border-radius: 15px;
+    flex: 1; /* Zajmij dostêpn¹ przestrzeñ */
+    /* Ogranicz szerokoœæ, aby zostawiæ miejsce na container-blue */
+    box-sizing: border-box;
+    display: flex; /* Ustaw kontener na flexbox */
+    flex-direction: column; /* Ustaw kierunek flexbox na kolumnê */
+    gap: 20px;
+}
+
+.container-blue {
+    position: sticky;
+    top: 130px;
+    height: calc(100vh - 200px);
+    background-color: rgba(43, 80, 153, 0.9);
+    border-radius: 15px;
+    width: 400px; /* Sta³a szerokoœæ container-blue */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: inherit;
+    padding: 10px 40px;
+}
+
+.date-container p {
+    margin: 10px;
+}
+
+.content-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.teams-column {
+    flex: 1; /* Zajmij ca³e dostêpne miejsce po lewej stronie */
+    margin-right: 10px;
+}
+
+.buttons-column {
+    min-width: 200px;
+    justify-content: center;
+    display: flex;
+}
+
+.flex-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+    align-items: center;
+}
+
+.flex-content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+    .flex-content p {
+        font-size: x-large;
+    }
+
+    .flex-content span {
+        font-size: small;
+    }
+/*con blue*/
+.container-blue-header {
+    background-color: #1d428a;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 10px 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+    .container-blue-header p {
+        font-weight: 600;
+        font-size: larger;
+        margin: 0;
+        margin-right: auto;
+    }
+
+.container-blue-footer {
+    margin-top: auto;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background-color: #1d428a;
+}
+
+.con-footer-row {
+    display: flex;
+    padding: 10px 10%;
+    justify-content: space-evenly;
+}
+
+    .con-footer-row p {
+        margin: 0;
+    }
+
+.con-footer-row-left input {
+    width: 100px;
+    height: 100%;
+    padding: 0 5px;
+    background-color: #c2c2c2;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+    .con-footer-row-left input:focus {
+        outline: none;
+        border: 1px solid black;
+    }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.totalcourse {
+    margin: 0;
+    font-size: larger;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #c2c2c2;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.total-winning {
+    margin: auto 0;
+    font-size: x-large;
+    font-weight: 600;
+    text-align: center;
+}
+
+.con-footer-row-right {
+    margin-left: auto;
+}
+
+.container-blue-overflow {
+    overflow: auto;
+    padding: 10px;
+    max-height: calc(100vh - 200px); /* ustawiæ asdlkasjdk  */
+}
+
+    .container-blue-overflow::-webkit-scrollbar {
+        display: none;
+    }
+
+.bet-button {
+    width: 100%;
+    max-width: 400px;
+    height: 40px;
+    background-color: #c2c2c2;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.flex-container-blue {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: #375dab;
+    /*border-radius: inherit;*/
+    padding: 10px 15px 10px 40px;
+}
+
+.fl-con-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+    .fl-con-header span {
+        flex: 1; /* Zajmij resztê dostêpnego miejsca */
+        display: flex;
+        align-items: center;
+    }
+
+.fl-con-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.content-winners-name {
+    flex-grow: 1; /* Zajmij dostêpne miejsce */
+    display: flex;
+    flex-direction: column;
+}
+
+    .content-winners-name p {
+        font-weight: 600;
+        font-size: x-large;
+        margin: 0;
+    }
+
+.content-single-course {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .content-single-course p {
+        font-weight: 700;
+        font-size: x-large;
+        margin: 0;
+    }
+@media (max-width: 1000px) {
+    .container-wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .container-white {
+        width: 100%;
+        max-width: none; /* Usuñ ograniczenie szerokoœci dla ma³ych ekranów */
+    }
+
+    .container-blue {
+        position: initial;
+        width: 100%;
+        height: auto;
+    }
+}
+@media (max-width: 500px) {
+    .flex-container {
+        padding: 5px;
+    }
+
+    .flex-buttons {
+        flex-direction: column;
+    }
+}
 @media only screen and (max-width: 786px) {
     .nav-button {
         display: none;
@@ -300,4 +576,21 @@ header {
             flex-direction: column;
             gap: 0;
         }
+}
+@media only screen and (max-width: 420px){
+    .container-white {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 3px;
+        border-radius: 15px;
+    }
+    .flex-container {
+        margin: 30px;
+        padding: 3px;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        z-index: 2;
+        opacity: 1;
+        border-radius: 15px;
+    }
 }
