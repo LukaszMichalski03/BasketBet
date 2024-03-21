@@ -20,6 +20,7 @@ namespace BasketBet.Web
                 .AddJsonFile(databaseSettingsPath, optional: false, reloadOnChange: true);
             // Add services to the container.
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+            builder.Services.AddScoped<IBetRepository, BetRepository>();
             builder.Services.AddControllersWithViews();
 
             builder.Services.RegisterDataServices(builder.Configuration);

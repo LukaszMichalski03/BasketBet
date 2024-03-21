@@ -1,0 +1,17 @@
+﻿@using BasketBet.Web.ViewModels
+@model SendBetVM
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>@Model.Points</h1>
+<h1>@Model.TotalCourse</h1>
+<h1>@Model.TotalWinning</h1>
+<br/>
+@foreach(var betItem in Model.BetsList)
+{
+    <h2>@betItem.Course</h2>
+    <h3>@betItem.TeamTypedOn.Name</h3>
+    <p>@betItem.GameVM.HomeTeamVM.Name - @betItem.GameVM.AwayTeamVM.Name</p>
+}

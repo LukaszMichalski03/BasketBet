@@ -132,7 +132,7 @@ namespace BasketBet.EntityFramework.Migrations
                     b.Property<int>("BetId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("BetItemOutcome")
+                    b.Property<bool?>("BetItemOutcome")
                         .HasColumnType("bit");
 
                     b.Property<int>("GameId")

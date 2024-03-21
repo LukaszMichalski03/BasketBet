@@ -26,12 +26,13 @@
                         <div class="flex-buttons">
                             <button class="btn white-btn" onclick="toggleBet('@JsonConvert.SerializeObject(match)', 'Home', this)">
                                 <p>@match.HomeTeamVM.Name</p>
-                                <span>@match.OddsHomeTeam</span> <!-- Tutaj możesz umieścić rzeczywiste kursy -->
+                                <span>@match.OddsHomeTeam</span>
                             </button>
                             <button class="btn white-btn" onclick="toggleBet('@JsonConvert.SerializeObject(match)', 'Away', this)">
                                 <p>@match.AwayTeamVM.Name</p>
-                                <span>@match.OddsAwayTeam</span> <!-- Tutaj możesz umieścić rzeczywiste kursy -->
+                                <span>@match.OddsAwayTeam</span>
                             </button>
+
 
                         </div>
                     </div>
@@ -41,33 +42,32 @@
 
     </div>
 
-    <form id="blueContainer" method="post" asp-action="CreateBet" asp-controller="Home">
-        <div class="container-blue">
-            <div class="container-blue-header">
-                <p>@Model.Bets.Count zdarzeń</p>
-                <button type="button" class="btn btn-danger" onclick="clearBets()">Clear</button>
-            </div>
-            <div class="container-blue-overflow" id="betContainerOverflow">
-                <!-- wyswietlane elementy z listy js-->
-            </div>
+   
+    <div class="container-blue">
+        <div class="container-blue-header">
+            <p>@Model.Bets.Count zdarzeń</p>
+            <button type="button" class="btn btn-danger" onclick="removeAllBets()">Clear</button>
+        </div>
+        <div class="container-blue-overflow" id="betContainerOverflow">
+            <!-- wyswietlane elementy z listy js-->
+        </div>
 
-            <div class="container-blue-footer">
-                <div class="con-footer-row">
-                    <div class="con-footer-row-left">
-                        <input type="number" placeholder="Points" />
-                    </div>
-                    <p class="totalcourse">50.23</p>
+        <div class="container-blue-footer">
+            <div class="con-footer-row">
+                <div class="con-footer-row-left">
+                    <input type="number" placeholder="Points" />
                 </div>
-                <div class="con-footer-row">
-                    <p>Potential Winnings</p>
-                    <p class="total-winning">123,23 zł</p>
-                </div>
-                <div class="con-footer-row">
-                    <button type="button" class="bet-button" onclick="sendBetsToController()">Bet</button>
-                </div>
+                <p class="totalcourse">1.00</p>
+            </div>
+            <div class="con-footer-row">
+                <p>Potential Winnings</p>
+                <p class="total-winning">0 points</p>
+            </div>
+            <div class="con-footer-row">
+                <button type="button" class="bet-button" onclick="sendBetsToController()">Bet</button>
             </div>
         </div>
-    </form>
+    </div>
 
 </div>
 

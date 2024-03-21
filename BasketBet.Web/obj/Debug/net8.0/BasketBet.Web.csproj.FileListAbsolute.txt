@@ -148,3 +148,10 @@ C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\Au
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\obj\Debug\net8.0\BasketBet.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.Mvc.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.Razor.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.Helpers.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\System.Web.WebPages.dll
+C:\Users\Łukasz\Desktop\projekty\c#\BasketBet\BasketBet.Web\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
