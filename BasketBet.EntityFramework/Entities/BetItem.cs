@@ -12,6 +12,8 @@ namespace BasketBet.EntityFramework.Entities
 
         public int SelectedTeamId { get; set; }
 
+        public double ItemOdds { get; set; }
+
         public int BetId { get; set; }
         public Bet Bet { get; set; }
 

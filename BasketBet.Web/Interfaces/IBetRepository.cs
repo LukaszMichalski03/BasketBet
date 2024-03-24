@@ -5,6 +5,7 @@ namespace BasketBet.Web.Interfaces
 {
     public interface IBetRepository
     {
-        Task<int> CreateBet(SendBetVM betVM, AppUser currentUser);
+        Task<int> CreateBet(BetVM betVM, AppUser currentUser);
+        Task<BetVM> GetById(int id);
     }
 }

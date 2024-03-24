@@ -8,6 +8,6 @@
         public int TeamTypedOnId { get; set; }
         public TeamVM TeamTypedOn { get; set; }
         public double Course {  get; set; }
-
+        public bool? BetItemOutcome { get; set; } = null;
     }
 }

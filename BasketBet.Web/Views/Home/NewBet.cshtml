@@ -1,17 +1,46 @@
 ﻿@using BasketBet.Web.ViewModels
-@model SendBetVM
+@model BetVM
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<h1>@Model.Points</h1>
-<h1>@Model.TotalCourse</h1>
-<h1>@Model.TotalWinning</h1>
-<br/>
-@foreach(var betItem in Model.BetsList)
-{
-    <h2>@betItem.Course</h2>
-    <h3>@betItem.TeamTypedOn.Name</h3>
-    <p>@betItem.GameVM.HomeTeamVM.Name - @betItem.GameVM.AwayTeamVM.Name</p>
-}
+<div class="h-100 w-100 d-flex justify-content-center align-items-center">
+    <div class="summary-container-blue">
+        <div class="container-blue-header">
+            <p>New Bet</p>
+        </div>
+        <div class="container-blue-overflow" id="betContainerOverflow">
+            @foreach (var betItem in Model.BetsList)
+            {
+                <div class="flex-container-blue">
+                    <div class="fl-con-header">
+                        <span>@betItem.GameVM.HomeTeamVM.Name - @betItem.GameVM.AwayTeamVM.Name</span>
+                    </div>
+                    <div class="fl-con-content">
+                        <div class="content-winners-name">
+                            <p>@betItem.TeamTypedOn.Name</p>
+                            <span>Game Winner</span>
+                        </div>
+                        <div class="content-single-course"><p>@betItem.Course</p></div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="container-blue-footer">
+            <div class="con-footer-row">
+                <div class="con-footer-row-left">
+                    <p class="totalcourse">@Model.Points Points</p>
+                </div>
+                <p class="totalcourse">@Model.TotalCourse</p>
+            </div>
+            <div class="con-footer-row">
+                <p>Potential Winnings</p>
+                <p class="total-winning">@Model.TotalWinning Points</p>
+            </div>
+            <div class="con-footer-row">
+                <a href="@Url.Action("Index", "Home")" class="btn bet-button">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -138,6 +138,9 @@ namespace BasketBet.EntityFramework.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
+                    b.Property<double>("ItemOdds")
+                        .HasColumnType("float");
+
                     b.Property<int>("SelectedTeamId")
                         .HasColumnType("int");
 

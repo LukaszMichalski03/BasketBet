@@ -33,7 +33,7 @@ namespace BasketBet.Web.Controllers
             this._betRepository = betRepository;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateBet([FromBody]SendBetVM betVM)
+        public async Task<IActionResult> CreateBet([FromBody] BetVM betVM)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
@@ -41,16 +41,19 @@ namespace BasketBet.Web.Controllers
                 // U¿ytkownik niezalogowany, zwróæ odpowiedŸ z b³êdem
                 return RedirectToAction("Login", "Account");
             }
-            var resultId = await _betRepository.CreateBet(betVM, currentUser);
-            
-            return RedirectToAction("NewBet", resultId);
-            
+            int resultId = await _betRepository.CreateBet(betVM, currentUser);
+
+            return Json(new { success = true, result = resultId });
+
         }
         [HttpGet]
         public async Task<IActionResult> NewBet(int BetId)
         {
-            return View(); ///////////
+            BetVM bet = await _betRepository.GetById(BetId);
+            // Pe³na œcie¿ka do widoku
+            return View("~/Views/Home/NewBet.cshtml", bet);
         }
+
         public async Task<IActionResult> Index()
         {
             HomeVM vm = new HomeVM();

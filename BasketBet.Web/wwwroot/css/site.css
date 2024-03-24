@@ -284,7 +284,16 @@ header {
     flex-direction: column; /* Ustaw kierunek flexbox na kolumnê */
     gap: 20px;
 }
-
+.summary-container-blue {
+    top: 130px;
+    max-height: calc(100vh - 200px);
+    background-color: rgba(43, 80, 153, 0.9);
+    border-radius: 15px;
+    width: 400px; /* Sta³a szerokoœæ container-blue */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
 .container-blue {
     position: sticky;
     top: 130px;

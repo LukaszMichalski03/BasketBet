@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasketBet.EntityFramework")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67b149e160bbff3be82cee4b73234fac92f6caca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37f39c4f49e484548fad9e05fdd62e1b5a9aef03")]
 [assembly: System.Reflection.AssemblyProductAttribute("BasketBet.EntityFramework")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BasketBet.EntityFramework")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

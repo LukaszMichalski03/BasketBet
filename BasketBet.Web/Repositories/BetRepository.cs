@@ -18,7 +18,7 @@ namespace BasketBet.Web.Repositories
             this._mapper = mapper;
         }
 
-        public async Task<int> CreateBet(SendBetVM betVM, AppUser currentUser)
+        public async Task<int> CreateBet(BetVM betVM, AppUser currentUser)
         {
             Bet bet = new Bet()
             {
@@ -37,7 +37,8 @@ namespace BasketBet.Web.Repositories
                     GameId = singleGameBet.GameVMId,
                     SelectedTeamId = singleGameBet.TeamTypedOnId,
                     BetId = bet.Id, // Tutaj bet.Id już istnieje po poprzednim SaveChanges()
-                    BetItemOutcome = false // Musisz zdecydować, co robić w przypadku BetItemOutcome, który nie może być null w bool
+                    BetItemOutcome = null,
+                    ItemOdds = singleGameBet.Course
                 };
                 _context.BetItems.Add(item);
             }
@@ -46,10 +47,21 @@ namespace BasketBet.Web.Repositories
 
             return bet.Id; // Zwróć ID nowo utworzonego zakładu
         }
-        public async Task<Bet> GetById(int id)
+        public async Task<BetVM> GetById(int id)
         {
-            //_context.Bets.Where(b => b.Id == id).FirstOrDefault();
-            return new Bet();
+            var betItems = await _context.BetItems.Include(bi => bi.Game).ThenInclude(g => g.HomeTeam).Include(bi => bi.Game).ThenInclude(g => g.AwayTeam)
+                .Where(b => b.BetId == id).ToListAsync();
+            var bet = await _context.Bets.Where(b => b.Id == id).FirstOrDefaultAsync();
+
+            List<SingleGameBetVM> betsList = _mapper.Map<List<SingleGameBetVM>>(betItems);
+            BetVM betVM = new()
+            {
+                BetsList = betsList,
+                Points = bet.Bid,
+                TotalCourse = bet.TotalOdds,
+                TotalWinning = bet.PotentialWinning
+            };
+            return betVM;
         }
         
     }

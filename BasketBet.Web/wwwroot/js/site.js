@@ -12,41 +12,20 @@ window.addEventListener('scroll', function () {
     }
 });
 
-
-
 var betsList = [];
-function toggleBet(match, teamPosition, button) {
-    var matchObject = JSON.parse(match);
+function toggleBet(matchData, betType, button) {
+    var matchObject = JSON.parse(matchData);
     var isActive = button.classList.contains('active');
 
-    
-    var isBetAlreadyAdded = betsList.some(function (bet) {
-        return bet.GameVM.HomeTeamVM.Name === matchObject.HomeTeamVM.Name &&
-            bet.GameVM.AwayTeamVM.Name === matchObject.AwayTeamVM.Name &&
-            bet.TeamTypedOn === teamPosition;
-    });
-
-    
-    var isExistingBet = betsList.some(function (bet) {
-        return bet.GameVM.HomeTeamVM.Name === matchObject.HomeTeamVM.Name &&
-            bet.GameVM.AwayTeamVM.Name === matchObject.AwayTeamVM.Name;
-    });
-
-    if (!isActive && !isBetAlreadyAdded && !isExistingBet) {
-        addBet(match, teamPosition);
-        button.classList.add('active');
-    } else if (isActive && isBetAlreadyAdded) {
-        
-        var existingBetIndex = betsList.findIndex(function (bet) {
-            return bet.GameVM.HomeTeamVM.Name === matchObject.HomeTeamVM.Name &&
-                bet.GameVM.AwayTeamVM.Name === matchObject.AwayTeamVM.Name &&
-                bet.TeamTypedOn === teamPosition;
-        });
-        if (existingBetIndex !== -1) {
-            betsList.splice(existingBetIndex, 1);
-        }
+    if (isActive) {
         button.classList.remove('active');
-        
+
+        // Usuń elementy z betsList, które pasują do kryteriów
+        betsList = betsList.filter(function (bet) {
+            return !(bet.GameVMId === matchObject.Id);
+        });
+
+        // Usuń dzieci z elementu betContainerOverflow, które pasują do kryteriów
         var betContainer = document.getElementById('betContainerOverflow');
         var betsToRemove = betContainer.querySelectorAll('.flex-container-blue span');
         betsToRemove.forEach(function (bet) {
@@ -54,14 +33,22 @@ function toggleBet(match, teamPosition, button) {
                 bet.parentElement.parentElement.remove();
             }
         });
+    } else {
+        // Sprawdź, czy w betsList nie ma żadnego elementu o GameVMId równym matchObject.Id
+        var isBetAlreadyAdded = betsList.some(function (bet) {
+            return bet.GameVMId === matchObject.Id;
+        });
+
+        // Jeśli nie ma żadnego elementu o takim GameVMId, dodaj 'active' do przycisku
+        // i dodaj zakład do listy betsList
+        if (!isBetAlreadyAdded) {
+            button.classList.add('active');
+            addBet(matchData, betType);
+        }
     }
+
     updateTotalCourse();
 }
-
-
-
-
-
 
 
 function addBet(match, teamPosition) {
@@ -134,7 +121,7 @@ function addBet(match, teamPosition) {
 
 
 function removeAllBets() {
-    
+
     betsList = [];
 
     updateTotalCourse();
@@ -143,7 +130,7 @@ function removeAllBets() {
     while (betContainer.firstChild) {
         betContainer.removeChild(betContainer.firstChild);
     }
-    
+
     var buttons = document.querySelectorAll('.btn.white-btn');
 
     buttons.forEach(function (button) {
@@ -164,11 +151,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var pointsInput = document.querySelector('.con-footer-row-left input[type="number"]');
     var totalCourseElement = document.querySelector('.totalcourse');
     var totalWinningElement = document.querySelector('.total-winning');
-    
+
     totalCourseElement.addEventListener('DOMSubtreeModified', function () {
         updateTotalWinning();
     });
-    
+
     pointsInput.addEventListener('input', function () {
         updateTotalWinning();
     });
@@ -226,8 +213,14 @@ function sendBetsToController() {
                 return response.json();
             })
             .then(data => {
-                console.log('Response from server:', data);
                 // Obsłuż odpowiedź z serwera
+                if (data.success) {
+                    // Pobierz wynik z odpowiedzi i przekaż go do akcji NewBet
+                    var result = data.result;
+                    window.location.href = '/Home/NewBet?BetId=' + result;
+                } else {
+                    console.log('Wystąpił błąd podczas przetwarzania żądania.');
+                }
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -236,6 +229,7 @@ function sendBetsToController() {
         console.log('Wartość punktów musi być większa niż 0 lub niepoprawne wartości dla totalWinningValue lub pointsValue.');
     }
 }
+
 
 
 

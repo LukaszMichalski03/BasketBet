@@ -8,6 +8,15 @@ namespace BasketBet.Web
     {
         public MappingProfile()
         {
+            CreateMap<BetItem, SingleGameBetVM>()
+                .ForMember(s => s.Course, opt => opt.MapFrom(b => b.ItemOdds))
+                .ForMember(s => s.TeamTypedOn, opt => opt.MapFrom(b =>
+                    b.SelectedTeamId == b.Game.AwayTeamId ? MapTeamVM(b.Game.AwayTeam) : MapTeamVM(b.Game.HomeTeam)))
+                .ForMember(s => s.GameVM, opt => opt.MapFrom(b => MapGameVM(b.Game)))
+                .ForMember(s => s.BetItemOutcome, opt => opt.MapFrom(b => b.BetItemOutcome));
+
+
+
             CreateMap<Team, TeamVM>();
 
             CreateMap<Game, GameVM>()
@@ -18,7 +27,7 @@ namespace BasketBet.Web
                 .ForMember(dest => dest.OddsHomeTeam, opt => opt.MapFrom(src => Math.Round(src.OddsHomeTeam, 2)))
                 .ForMember(dest => dest.OddsAwayTeam, opt => opt.MapFrom(src => Math.Round(src.OddsAwayTeam, 2)));
 
-            CreateMap<SendBetVM, Bet>()
+            CreateMap<BetVM, Bet>()
             .ForMember(dest => dest.TotalOdds, opt => opt.MapFrom(src => src.TotalCourse))
             .ForMember(dest => dest.Bid, opt => opt.MapFrom(src => src.Points))
             .ForMember(dest => dest.PotentialWinning, opt => opt.MapFrom(src => src.TotalWinning))
@@ -41,6 +50,23 @@ namespace BasketBet.Web
                     }
                 }
             })));
+        }
+        private GameVM MapGameVM(Game game)
+        {
+            if (game == null)
+                return null;
+
+            return new GameVM
+            {
+                Id = game.Id,
+                Date = game.Date,
+                HomeTeamVMId = game.HomeTeamId,
+                AwayTeamVMId = game.AwayTeamId,
+                HomeTeamVM = MapTeamVM(game.HomeTeam),
+                AwayTeamVM = MapTeamVM(game.AwayTeam),
+                OddsHomeTeam = Math.Round(game.OddsHomeTeam, 2),
+                OddsAwayTeam = Math.Round(game.OddsAwayTeam, 2)
+            };
         }
 
         private TeamVM MapTeamVM(Team team)
