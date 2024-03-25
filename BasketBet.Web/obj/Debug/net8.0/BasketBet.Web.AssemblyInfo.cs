@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasketBet.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37f39c4f49e484548fad9e05fdd62e1b5a9aef03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1aec0bc7e8e2560a573a94beee504a8a260eb58")]
 [assembly: System.Reflection.AssemblyProductAttribute("BasketBet.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BasketBet.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

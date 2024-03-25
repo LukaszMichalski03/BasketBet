@@ -14,7 +14,7 @@ namespace BasketBet.EntityFramework.Entities
         public double Bid { get; set; }
         public double PotentialWinning { get; set; }
 
-        public bool BetOutcome { get; set; }
+        public bool? BetOutcome { get; set; }
 
         public ICollection<Game> Games { get; set; } = new List<Game>();      
         public string AppUserId { get; set; }

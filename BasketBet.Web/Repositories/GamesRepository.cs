@@ -31,6 +31,14 @@ namespace BasketBet.Web.Repositories
 
             return gameVMs;
         }
+        public async Task<List<GameVM>> GetLatestScores()
+        {
+            List<Game> games = await _context.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam)
+                .Where(g => g.AwayTeamScore != null && g.HomeTeamScore != null).OrderByDescending(g => g.Id).Take(40)
+                .ToListAsync();
+            List<GameVM> gameVMs = _mapper.Map<List<GameVM>>(games);
+            return gameVMs;
+        }
 
     }
 }

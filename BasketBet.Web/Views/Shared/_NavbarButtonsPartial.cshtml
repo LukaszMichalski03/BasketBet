@@ -1,24 +1,29 @@
 ﻿@using BasketBet.EntityFramework.Entities
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> signInManager
+@inject UserManager<AppUser> userManager
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    var currentUser = await userManager.GetUserAsync(User); // Pobieramy aktualnego użytkownika
 }
+
 <div class="nav-button">
     @if (signInManager.IsSignedIn(User))
     {
-        <a asp-controller="Account" asp-action="LogOut" class="btn ">Log Out</a>
-        
+        var lastClaimTime = currentUser.LastPointsClaimTime; // Pobieramy czas ostatniego odebrania punktów
+        var currentTime = DateTime.Now; // Aktualny czas serwera
+        var minutesSinceLastClaim = (currentTime - lastClaimTime).TotalMinutes; // Różnica w minutach
+
+        if (minutesSinceLastClaim >= 1) // Sprawdzamy, czy minęła przynajmniej 1 minuta
+        {
+            <button class="btn signinButton m-0 p-0" onclick="claimPoints()">Collect Points</button>
+        }
+        <p class="btn m-0">Points: @(currentUser != null ? currentUser.Points.ToString() : "0")</p> <!-- Wyświetlamy rzeczywistą ilość punktów zalogowanego użytkownika -->
+        <a asp-controller="Account" asp-action="LogOut" class="btn signinButton">Log Out</a>
     }
     else
     {
         <a asp-controller="Account" asp-action="Login" class="btn signinButton">Sign In</a>
-
-        <a asp-controller="Account" asp-action="Register" class="btn ">Sign Up</a>
+        <a asp-controller="Account" asp-action="Register" class="btn">Sign Up</a>
     }
-
-
 </div>

@@ -22,6 +22,8 @@ namespace BasketBet.Web
             CreateMap<Game, GameVM>()
                 .ForMember(dest => dest.HomeTeamVMId, opt => opt.MapFrom(src => src.HomeTeamId))
                 .ForMember(dest => dest.AwayTeamVMId, opt => opt.MapFrom(src => src.AwayTeamId))
+                .ForMember(dest => dest.HomeTeamScore, opt => opt.MapFrom(src => src.HomeTeamScore))
+                .ForMember(dest => dest.AwayTeamScore, opt => opt.MapFrom(src => src.AwayTeamScore))
                 .ForMember(dest => dest.HomeTeamVM, opt => opt.MapFrom(src => MapTeamVM(src.HomeTeam)))
                 .ForMember(dest => dest.AwayTeamVM, opt => opt.MapFrom(src => MapTeamVM(src.AwayTeam)))
                 .ForMember(dest => dest.OddsHomeTeam, opt => opt.MapFrom(src => Math.Round(src.OddsHomeTeam, 2)))
@@ -30,6 +32,7 @@ namespace BasketBet.Web
             CreateMap<BetVM, Bet>()
             .ForMember(dest => dest.TotalOdds, opt => opt.MapFrom(src => src.TotalCourse))
             .ForMember(dest => dest.Bid, opt => opt.MapFrom(src => src.Points))
+            .ForMember(dest => dest.BetOutcome, opt => opt.MapFrom(src => src.BetOutcome))
             .ForMember(dest => dest.PotentialWinning, opt => opt.MapFrom(src => src.TotalWinning))
             .ForMember(dest => dest.Games, opt => opt.MapFrom(src => src.BetsList.Select(bet => new Game
             {

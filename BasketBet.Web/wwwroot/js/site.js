@@ -12,6 +12,8 @@ window.addEventListener('scroll', function () {
     }
 });
 
+
+
 var betsList = [];
 function toggleBet(matchData, betType, button) {
     var matchObject = JSON.parse(matchData);
@@ -48,6 +50,7 @@ function toggleBet(matchData, betType, button) {
     }
 
     updateTotalCourse();
+    updateBetsCount();
 }
 
 
@@ -114,6 +117,7 @@ function addBet(match, teamPosition) {
         var betContainer = document.getElementById('betContainerOverflow');
         betContainer.appendChild(betElement);
         updateTotalCourse();
+        updateBetsCount();
     } else {
         console.error("Brak właściwości HomeTeamVM w obiekcie match");
     }
@@ -125,6 +129,7 @@ function removeAllBets() {
     betsList = [];
 
     updateTotalCourse();
+    updateBetsCount();
 
     var betContainer = document.getElementById('betContainerOverflow');
     while (betContainer.firstChild) {
@@ -147,6 +152,13 @@ function updateTotalCourse() {
 
     totalCourseElement.textContent = totalCourseValue.toFixed(2);
 }
+function updateBetsCount() {
+    var countBetsElement = document.getElementById('count-bets');
+    var betsCount = betsList.length; // Załóżmy, że betsList jest dostępna
+    if (betsCount == 1) countBetsElement.textContent = betsCount + ' Bet';
+    else countBetsElement.textContent = betsCount + ' Bets';
+    
+}
 document.addEventListener('DOMContentLoaded', function () {
     var pointsInput = document.querySelector('.con-footer-row-left input[type="number"]');
     var totalCourseElement = document.querySelector('.totalcourse');
@@ -154,10 +166,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     totalCourseElement.addEventListener('DOMSubtreeModified', function () {
         updateTotalWinning();
+        updateBetsCount();
     });
 
     pointsInput.addEventListener('input', function () {
         updateTotalWinning();
+        
     });
 
     function updateTotalWinning() {
@@ -229,6 +243,28 @@ function sendBetsToController() {
         console.log('Wartość punktów musi być większa niż 0 lub niepoprawne wartości dla totalWinningValue lub pointsValue.');
     }
 }
+
+async function claimPoints() {
+    try {
+        const response = await fetch('/Home/ClaimPoints', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            console.log('Punkty zostały pomyślnie odebrane.');
+            // Odśwież stronę po odebraniu nagrody
+            location.reload();
+        } else {
+            console.error('Nie udało się odebrać punktów.');
+        }
+    } catch (error) {
+        console.error('Wystąpił błąd:', error);
+    }
+}
+
 
 
 

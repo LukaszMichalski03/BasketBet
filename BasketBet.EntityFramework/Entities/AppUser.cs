@@ -10,7 +10,8 @@ namespace BasketBet.EntityFramework.Entities
 {
     public class AppUser : IdentityUser
     {       
-        public int Points { get; set; }
-        public ICollection<Bet> Bets { get; set; } = new List<Bet>();
+        public double Points { get; set; }
+        public DateTime LastPointsClaimTime { get; set; }
+        public ICollection<Bet> Bets { get; set; }
     }
 }

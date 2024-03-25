@@ -25,7 +25,8 @@ namespace BasketBet.Web.Repositories
                 AppUserId = currentUser.Id,
                 TotalOdds = betVM.TotalCourse,
                 Bid = betVM.Points,
-                PotentialWinning = betVM.TotalWinning
+                PotentialWinning = betVM.TotalWinning,
+                BetOutcome = null,
             };
             _context.Bets.Add(bet);
             await _context.SaveChangesAsync(); // Po tej operacji obiekt bet powinien mieć już przypisane ID.
@@ -42,7 +43,7 @@ namespace BasketBet.Web.Repositories
                 };
                 _context.BetItems.Add(item);
             }
-
+            currentUser.Points -= bet.Bid;
             await _context.SaveChangesAsync(); // Zapisz zmiany dla BetItems
 
             return bet.Id; // Zwróć ID nowo utworzonego zakładu
@@ -59,10 +60,32 @@ namespace BasketBet.Web.Repositories
                 BetsList = betsList,
                 Points = bet.Bid,
                 TotalCourse = bet.TotalOdds,
-                TotalWinning = bet.PotentialWinning
+                TotalWinning = bet.PotentialWinning,
+                BetOutcome = bet.BetOutcome
             };
             return betVM;
         }
-        
+        public async Task<List<BetVM>> GetUsersBets(string userId)
+        {
+            List<BetVM> betVMs = new List<BetVM>();
+            var bets = await _context.Bets.Where(b => b.AppUserId == userId).OrderByDescending(b => b.Id).Take(20).ToListAsync();
+            foreach(var bet in bets)
+            {
+                var betItems = _context.BetItems.Include(bi => bi.Game).ThenInclude(g => g.HomeTeam).Include(bi => bi.Game).ThenInclude(g => g.AwayTeam)
+                .Where(b => b.BetId == bet.Id).ToList();
+                List<SingleGameBetVM> betsList = _mapper.Map<List<SingleGameBetVM>>(betItems);
+                betVMs.Add(new BetVM
+                {
+                    BetOutcome = bet.BetOutcome,
+                    BetsList = betsList,
+                    Points = bet.Bid,
+                    TotalCourse = bet.TotalOdds,
+                    TotalWinning = bet.PotentialWinning
+                });
+            }
+
+            return betVMs;
+        }
+
     }
 }

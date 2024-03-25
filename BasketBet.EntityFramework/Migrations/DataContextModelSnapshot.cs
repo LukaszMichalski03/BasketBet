@@ -41,6 +41,9 @@ namespace BasketBet.EntityFramework.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("LastPointsClaimTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -64,8 +67,8 @@ namespace BasketBet.EntityFramework.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
+                    b.Property<double>("Points")
+                        .HasColumnType("float");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -102,7 +105,7 @@ namespace BasketBet.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("BetOutcome")
+                    b.Property<bool?>("BetOutcome")
                         .HasColumnType("bit");
 
                     b.Property<double>("Bid")

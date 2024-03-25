@@ -1,0 +1,95 @@
+﻿@using BasketBet.Web.ViewModels
+@model StandingsVM
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="standings-wrapper">
+    <div class="container-white container-no-wrap">
+        <h2>Eastern Conference</h2>
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>P</th>
+                    <th>Name</th>
+                    <th>Wins</th>
+                    <th>Looses</th>
+                    <th>Win%</th>
+                    <th>H-Rec</th>
+                    <th>A-Rec</th>
+                    <th>PPG</th>
+                    <th>OPPG</th>
+                    <th>Streak</th>
+                    <th>Last 10</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var position = 1;
+                }
+                @foreach (var team in Model.EasternConference)
+                {
+                    <tr>
+                        <td>@position</td>
+                        <td>@team.Name</td>
+                        <td>@team.Wins</td>
+                        <td>@team.Looses</td>
+                        <td>@team.WinningPercentage</td>
+                        <td>@team.HomeRecord</td>
+                        <td>@team.AwayRecord</td>
+                        <td>@team.PointsPerGame</td>
+                        <td>@team.OpponentPointsPerGame</td>
+                        <td>@team.CurrentStreak</td>
+                        <td>@team.Last10Record</td>
+                    </tr>
+                    position++;
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="container-white container-no-wrap">
+        <h2>Western Conference</h2>
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>P</th>
+                    <th>Name</th>
+                    <th>Wins</th>
+                    <th>Looses</th>
+                    <th>Win%</th>
+                    <th>H-Rec</th>
+                    <th>A-Rec</th>
+                    <th>PPG</th>
+                    <th>OPPG</th>
+                    <th>Streak</th>
+                    <th>Last 10</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var positionW = 1;
+                }
+                @foreach (var team in Model.WesternConference)
+                {
+                    <tr>
+                        <td>@positionW</td>
+                        <td>@team.Name</td>
+                        <td>@team.Wins</td>
+                        <td>@team.Looses</td>
+                        <td>@team.WinningPercentage</td>
+                        <td>@team.HomeRecord</td>
+                        <td>@team.AwayRecord</td>
+                        <td>@team.PointsPerGame</td>
+                        <td>@team.OpponentPointsPerGame</td>
+                        <td>@team.CurrentStreak</td>
+                        <td>@team.Last10Record</td>
+                    </tr>
+                    positionW++;
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

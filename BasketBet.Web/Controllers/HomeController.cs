@@ -18,11 +18,13 @@ namespace BasketBet.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IGamesRepository _gamesRepository;
         private readonly IBetRepository _betRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ITeamsRepository _teamsRepository;
         private readonly HttpClient _client;
         Uri baseAddress = new Uri("https://localhost:7041");
 
         public HomeController(SignInManager<AppUser> signIngManager, UserManager<AppUser> userManager, ILogger<HomeController> logger,
-            IGamesRepository gamesRepository, IBetRepository betRepository)
+            IGamesRepository gamesRepository, IBetRepository betRepository, IUserRepository userRepository, ITeamsRepository teamsRepository)
         {
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
@@ -31,6 +33,8 @@ namespace BasketBet.Web.Controllers
             _logger = logger;
             this._gamesRepository = gamesRepository;
             this._betRepository = betRepository;
+            this._userRepository = userRepository;
+            this._teamsRepository = teamsRepository;
         }
         [HttpPost]
         public async Task<IActionResult> CreateBet([FromBody] BetVM betVM)
@@ -53,12 +57,46 @@ namespace BasketBet.Web.Controllers
             // Pe³na œcie¿ka do widoku
             return View("~/Views/Home/NewBet.cshtml", bet);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> ClaimPoints()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            await _userRepository.ClaimPoints(currentUser.Id);
+            return Ok();
+        }
         public async Task<IActionResult> Index()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+
             HomeVM vm = new HomeVM();
             vm.Matches = await _gamesRepository.GetRecentGames();
+            if (currentUser != null) vm.LastPointsClaimTime = currentUser.LastPointsClaimTime;
+            else vm.LastPointsClaimTime = null;
             return View(vm);
+        }
+        public async Task<IActionResult> MyBets()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var MyBets = await _betRepository.GetUsersBets(currentUser.Id);
+            return View(MyBets);
+        }
+        public async Task<IActionResult> Standings()
+        {
+            var Standings = await _teamsRepository.GetTables();
+            return View(Standings);
+        }
+        public async Task<IActionResult> LatestResults()
+        {
+            var games = await _gamesRepository.GetLatestScores();
+            return View(games);
         }
         [HttpGet]
         public IActionResult Table()

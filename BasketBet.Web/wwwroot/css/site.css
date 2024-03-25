@@ -222,7 +222,18 @@ header {
     color: #fff;
     
 }
-
+.color-blue {
+    color: #1D428A;
+}
+.color-orange {
+    color: darkorange;
+}
+.color-green {
+    color: green;
+}
+.color-red {
+    color: red;
+}
 .submit {
     font-size: 15px;
     font-weight: 500;
@@ -271,7 +282,11 @@ header {
     justify-content: center;
     gap: 1%;
 }
-
+.standings-wrapper{
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+}
 .container-white {
     height: fit-content;
     background-color: rgba(255, 255, 255, 0.9);
@@ -350,10 +365,12 @@ header {
     gap: 15px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
     .flex-content p {
         font-size: x-large;
+        margin-bottom: 0;
     }
 
     .flex-content span {
@@ -504,6 +521,45 @@ input[type="number"]::-webkit-outer-spin-button {
         font-size: x-large;
         margin: 0;
     }
+
+.container-wrapper-MyBets{
+    display: flex;
+    flex-direction: column; 
+    padding: 0px 20%;
+}
+
+.container-white-MyBets {
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    flex: 1;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    display: flex; /* Ustaw kontener na flexbox */
+    flex-direction: column;
+}
+.container-white-footer {
+    margin: auto 0px 0px 0px;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background-color: #c2c2c2;
+    display: flex;
+    justify-content: center;
+}
+.container-white-header {
+    background-color: white;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 10px 5%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.standings-table {
+    border-collapse: separate;
+    border-spacing: 10px 0px;
+}
+
 @media (max-width: 1000px) {
     .container-wrapper {
         flex-direction: column-reverse;
@@ -519,6 +575,12 @@ input[type="number"]::-webkit-outer-spin-button {
         width: 100%;
         height: auto;
     }
+    .standings-table th{
+        font-size: 12px;
+    }
+    .standings-table td {
+        font-size: 12px;
+    }
 }
 @media (max-width: 500px) {
     .flex-container {
@@ -529,7 +591,7 @@ input[type="number"]::-webkit-outer-spin-button {
         flex-direction: column;
     }
 }
-@media only screen and (max-width: 786px) {
+@media only screen and (max-width: 1100px) {
     .nav-button {
         display: none;
     }
@@ -545,7 +607,6 @@ input[type="number"]::-webkit-outer-spin-button {
         justify-content: center;
         background: rgba(255, 255, 255, 0.2);
         width: 100%;
-        height: 90vh;
         backdrop-filter: blur(20px);
         transition: .3s;
     }
@@ -572,11 +633,28 @@ input[type="number"]::-webkit-outer-spin-button {
             .nav-menu-btn i:hover {
                 background: rgba(255, 255, 255, 0.15);
             }
+    .nav-menu ul li .link {
+        
+        color: black;
+        
+    }
 }
+@media only screen and (max-width: 700px){
+    .standings-table th {
+        font-size: 10px;
+    }
 
+    .standings-table td {
+        font-size: 10px;
+    }
+}
 @media only screen and (max-width: 540px) {
     .wrapper {
         min-height: 100vh;
+    }
+    .container-no-wrap {
+        overflow-x: auto; /* Dodaje suwak poziomy, jeœli zawartoœæ jest zbyt szeroka */
+        white-space: nowrap;
     }
 
     .form-box {

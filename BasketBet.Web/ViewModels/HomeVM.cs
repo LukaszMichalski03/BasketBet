@@ -6,7 +6,6 @@ namespace BasketBet.Web.ViewModels
     public class HomeVM
     {
         public List<GameVM> Matches { get; set; } = new List<GameVM>();
-        public List<SingleGameBetVM> Bets { get; set; } = new List<SingleGameBetVM>();
-
+        public DateTime? LastPointsClaimTime { get; set; }
     }
 }

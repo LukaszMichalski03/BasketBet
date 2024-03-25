@@ -1,0 +1,60 @@
+﻿@using BasketBet.Web.ViewModels
+@model List<BetVM>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container-wrapper-MyBets">
+@foreach(var bet in Model)
+{
+    
+        <div class="container-white-MyBets gap-0 p-0">
+            <div class="container-white-header">
+                <h4>Points Placed: <span class="color-blue">@bet.Points</span>  </h4>
+                <h4>Total Course: <span class="color-blue">@bet.TotalCourse</span></h4>
+                <h4>Potential Winning: <span class="color-blue">@bet.TotalWinning</span></h4>
+            </div>
+            <div class="p-1">
+                @foreach (var betItem in bet.BetsList)
+                {
+                    <div class="flex-container m-1">
+                        <span>@betItem.GameVM.Date</span>
+                        <h3><span class="color-blue">@betItem.TeamTypedOn.Name</span> - winner</h3>
+                        <h6>@betItem.GameVM.AwayTeamVM.Name - @betItem.GameVM.HomeTeamVM.Name</h6>
+                        @if(betItem.BetItemOutcome == null)
+                        {
+                            <span class="color-orange">In Process</span>
+                        }
+                        else if(betItem.BetItemOutcome == true)
+                        {
+                            <span class="color-green">Success</span>
+                        }
+                        else
+                        {
+                            <span class="color-red">Loss</span>
+                        }
+                    </div>
+
+                }
+            </div>
+            
+            <div class="container-white-footer">
+                @if(bet.BetOutcome == null)
+                {
+                    <h2 class="m-0 p-0 color-orange">In Process</h2>
+                }
+                else if(bet.BetOutcome == true)
+                {
+                    <h2 class="color-green m-0 p-0">Win</h2>
+                }
+                else{
+                    <h2 class="m-0 p-0 color-red">Loss</h2>
+                }
+                
+                
+                
+            </div>
+        </div>   
+}
+</div>

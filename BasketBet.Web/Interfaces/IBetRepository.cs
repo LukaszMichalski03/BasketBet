@@ -7,5 +7,6 @@ namespace BasketBet.Web.Interfaces
     {
         Task<int> CreateBet(BetVM betVM, AppUser currentUser);
         Task<BetVM> GetById(int id);
+        Task<List<BetVM>> GetUsersBets(string userId);
     }
 }

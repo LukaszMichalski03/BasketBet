@@ -12,16 +12,17 @@
    
         <nav class="nav" id="navBar">
             <div class="nav-logo">
-                <p>LOGO .</p>
+                <p>BASKETBET.</p>
             </div>
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="#" class="link active">Home</a></li>
-                    <li><a href="#" class="link">Blog</a></li>
-                    <li><a href="#" class="link">Services</a></li>
-                    <li><a href="#" class="link">About</a></li>
-                </ul>
-            </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index" class="link" >Home</a></li>
+                <li><a asp-controller="Home" asp-action="MyBets" class="link">My Bets</a></li>
+                <li><a asp-controller="Home" asp-action="Standings" class="link">Standings</a></li>
+                <li><a asp-controller="Home" asp-action="LatestResults" class="link">Latest Results</a></li>
+            </ul>
+        </div>
+
             <partial name="_NavbarButtonsPartial"/>
             @* <div class="nav-button">
                 <a asp-controller="Account" asp-action="Login" class="btn white-btn">Sign In</a>
