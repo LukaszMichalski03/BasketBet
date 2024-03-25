@@ -14,8 +14,8 @@ namespace BasketBet.Web.Repositories
 
         public BetRepository(DataContext context, IMapper mapper)
         {
-            this._context = context;
-            this._mapper = mapper;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<int> CreateBet(BetVM betVM, AppUser currentUser)
@@ -29,7 +29,7 @@ namespace BasketBet.Web.Repositories
                 BetOutcome = null,
             };
             _context.Bets.Add(bet);
-            await _context.SaveChangesAsync(); // Po tej operacji obiekt bet powinien mieć już przypisane ID.
+            await _context.SaveChangesAsync();
 
             foreach (var singleGameBet in betVM.BetsList)
             {
@@ -37,16 +37,16 @@ namespace BasketBet.Web.Repositories
                 {
                     GameId = singleGameBet.GameVMId,
                     SelectedTeamId = singleGameBet.TeamTypedOnId,
-                    BetId = bet.Id, // Tutaj bet.Id już istnieje po poprzednim SaveChanges()
+                    BetId = bet.Id,
                     BetItemOutcome = null,
                     ItemOdds = singleGameBet.Course
                 };
                 _context.BetItems.Add(item);
             }
             currentUser.Points -= bet.Bid;
-            await _context.SaveChangesAsync(); // Zapisz zmiany dla BetItems
+            await _context.SaveChangesAsync();
 
-            return bet.Id; // Zwróć ID nowo utworzonego zakładu
+            return bet.Id; 
         }
         public async Task<BetVM> GetById(int id)
         {
@@ -136,8 +136,6 @@ namespace BasketBet.Web.Repositories
                 }
             }
             await _context.SaveChangesAsync();
-
         }
-
     }
 }

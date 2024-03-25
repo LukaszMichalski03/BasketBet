@@ -29,13 +29,13 @@ namespace BasketBet.Web.Controllers
         {
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
-            this._signIngManager = signIngManager;
-            this._userManager = userManager;
+            _signIngManager = signIngManager;
+            _userManager = userManager;
             _logger = logger;
-            this._gamesRepository = gamesRepository;
-            this._betRepository = betRepository;
-            this._userRepository = userRepository;
-            this._teamsRepository = teamsRepository;
+            _gamesRepository = gamesRepository;
+            _betRepository = betRepository;
+            _userRepository = userRepository;
+            _teamsRepository = teamsRepository;
         }
         [HttpPost]
         public async Task<IActionResult> CreateBet([FromBody] BetVM betVM)
@@ -43,7 +43,6 @@ namespace BasketBet.Web.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
             {
-                // U¿ytkownik niezalogowany, zwróæ odpowiedŸ z b³êdem
                 return Json(new { success = false, result = false });
             }
             int resultId = await _betRepository.CreateBet(betVM, currentUser);
@@ -55,7 +54,6 @@ namespace BasketBet.Web.Controllers
         public async Task<IActionResult> NewBet(int BetId)
         {
             BetVM bet = await _betRepository.GetById(BetId);
-            // Pe³na œcie¿ka do widoku
             return View("~/Views/Home/NewBet.cshtml", bet);
         }
         [HttpPost]
@@ -101,17 +99,8 @@ namespace BasketBet.Web.Controllers
             {
                 using (_client)
                 {
-                    try
-                    {
-                        HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + $"Schedule/Scores/{formattedDate}", null);
-                        
-                    }
-                    catch(Exception ex)
-                    {
-                        
-                    }
                     
-
+                     HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + $"Schedule/Scores/{formattedDate}", null);
                 }
             });
             await _betRepository.CheckBetsOutcome();

@@ -38,14 +38,14 @@ namespace BasketBet.Web
             {
                 Date = bet.GameVM.Date,
                 HomeTeamId = bet.GameVM.HomeTeamVM.Id,
-                HomeTeamScore = null, // Ustawiamy na null, bo wartość nie jest jeszcze znana
+                HomeTeamScore = null,
                 OddsHomeTeam = bet.GameVM.OddsHomeTeam,
                 AwayTeamId = bet.GameVM.AwayTeamVM.Id,
-                AwayTeamScore = null, // Ustawiamy na null, bo wartość nie jest jeszcze znana
+                AwayTeamScore = null,
                 OddsAwayTeam = bet.GameVM.OddsAwayTeam,
-                Bets = new List<Bet> // Tworzymy pustą listę zakładów dla każdego meczu
+                Bets = new List<Bet>
                 {
-                    new Bet // Dodajemy nowy zakład do listy
+                    new Bet
                     {
                         TotalOdds = bet.Course,
                         Bid = src.Points,
@@ -94,7 +94,4 @@ namespace BasketBet.Web
             };
         }
     }
-
-
-
 }

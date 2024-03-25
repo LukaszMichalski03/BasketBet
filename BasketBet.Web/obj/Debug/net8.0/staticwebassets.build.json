@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SnL6fknk0ylyLlCJYvhFvR5JmPwRwttC+pbUpVul/Xk=",
+  "Hash": "R8ZAiBsxEVApzYxglsSjSi09w9yGfbAfdj9DWLGuviw=",
   "Source": "BasketBet.Web",
   "BasePath": "_content/BasketBet.Web",
   "Mode": "Default",
@@ -53,25 +53,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BasketBet.Web.bundle.scp.css"
-    },
-    {
-      "Identity": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\css\\account.css",
-      "SourceId": "BasketBet.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\",
-      "BasePath": "_content/BasketBet.Web",
-      "RelativePath": "css/account.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\account.css"
     },
     {
       "Identity": "C:\\Users\\Łukasz\\Desktop\\projekty\\c#\\BasketBet\\BasketBet.Web\\wwwroot\\css\\site.css",

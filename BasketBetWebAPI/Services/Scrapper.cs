@@ -10,8 +10,8 @@ namespace BasketBetWebAPI.Services
 {
     public class Scrapper
     {
-        private const string _baseUrl = "https://www.espn.com/nba/standings";
-        private const string _statsUrl = "https://www.espn.co.uk/nba/fixtures";
+        private const string _standingsUrl = "https://www.espn.com/nba/standings";
+        private const string _scheduleUrl = "https://www.espn.co.uk/nba/fixtures";
 
         private readonly ITeamsRepository _teamsRepository;
         private readonly IGamesRepository _gamesRepository;
@@ -31,7 +31,7 @@ namespace BasketBetWebAPI.Services
         {
             teamDtos.Clear();
             var web = new HtmlWeb();
-            var document = web.Load(_baseUrl);
+            var document = web.Load(_standingsUrl);
 
             var easternTableNames = document.QuerySelector("table tbody");
             var easterntableparent = easternTableNames?.ParentNode.ParentNode;
@@ -97,7 +97,7 @@ namespace BasketBetWebAPI.Services
         {
             gameDtos.Clear();
             var web = new HtmlWeb();
-            var document = web.Load(_statsUrl);
+            var document = web.Load(_scheduleUrl);
 
             var tables = document.QuerySelectorAll("table.schedule");
             List<string> captions = new();
@@ -215,11 +215,6 @@ namespace BasketBetWebAPI.Services
                     }
                 }
             }
-            
-
-
-
-           // var captions = document.QuerySelectorAll("h2.table-caption");
 
             for (int i = 0; i < tables.Count; i++)
             {
@@ -276,7 +271,6 @@ namespace BasketBetWebAPI.Services
             int result;
             gameDtos.Clear();
             string formattedDate = date.ToString("yyyyMMdd");
-            //string UrlNotUpd = "https://www.espn.co.uk/nba/scoreboard/_/date/20240216";
             string Url = $"https://www.espn.co.uk/nba/scoreboard/_/date/{formattedDate}";
 
             var web = new HtmlWeb();

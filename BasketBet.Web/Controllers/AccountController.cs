@@ -10,14 +10,12 @@ namespace BasketBet.Web.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IMapper _mapper;
 
 
-        public AccountController(SignInManager<AppUser> signIngManager, UserManager<AppUser> userManager, IMapper mapper)
+        public AccountController(SignInManager<AppUser> signIngManager, UserManager<AppUser> userManager)
         {
             _signInManager = signIngManager;
             _userManager = userManager;
-            this._mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -30,7 +28,6 @@ namespace BasketBet.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            //test@gmail.com    Test123
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(loginVM.Email);

@@ -4,12 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BasketBet.EntityFramework
 {
@@ -18,12 +12,10 @@ namespace BasketBet.EntityFramework
         public static IServiceCollection RegisterDataServices(
             this IServiceCollection services, IConfiguration configuration)
         {
-            // Wczytaj connection string z pliku konfiguracyjnego
             string connectionString = configuration.GetConnectionString("default");
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
-            // Rejestruj Identity Framework
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -43,7 +35,6 @@ namespace BasketBet.EntityFramework
             {
                 options.ValidationInterval = TimeSpan.FromMinutes(30);
             });
-            // Dodaj dodatkowe konfiguracje Identity Framework, jeśli są potrzebne
 
             return services;
         }

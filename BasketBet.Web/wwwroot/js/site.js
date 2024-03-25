@@ -22,12 +22,10 @@ function toggleBet(matchData, betType, button) {
     if (isActive) {
         button.classList.remove('active');
 
-        // Usuń elementy z betsList, które pasują do kryteriów
         betsList = betsList.filter(function (bet) {
             return !(bet.GameVMId === matchObject.Id);
         });
 
-        // Usuń dzieci z elementu betContainerOverflow, które pasują do kryteriów
         var betContainer = document.getElementById('betContainerOverflow');
         var betsToRemove = betContainer.querySelectorAll('.flex-container-blue span');
         betsToRemove.forEach(function (bet) {
@@ -36,13 +34,10 @@ function toggleBet(matchData, betType, button) {
             }
         });
     } else {
-        // Sprawdź, czy w betsList nie ma żadnego elementu o GameVMId równym matchObject.Id
         var isBetAlreadyAdded = betsList.some(function (bet) {
             return bet.GameVMId === matchObject.Id;
         });
 
-        // Jeśli nie ma żadnego elementu o takim GameVMId, dodaj 'active' do przycisku
-        // i dodaj zakład do listy betsList
         if (!isBetAlreadyAdded) {
             button.classList.add('active');
             addBet(matchData, betType);
@@ -154,7 +149,7 @@ function updateTotalCourse() {
 }
 function updateBetsCount() {
     var countBetsElement = document.getElementById('count-bets');
-    var betsCount = betsList.length; // Załóżmy, że betsList jest dostępna
+    var betsCount = betsList.length;
     if (betsCount == 1) countBetsElement.textContent = betsCount + ' Bet';
     else countBetsElement.textContent = betsCount + ' Bets';
     
@@ -223,23 +218,19 @@ function sendBetsToController() {
             .then(response => response.json())
             .then(data => {
                 if (data.success === false) {
-                    // Przekieruj użytkownika do strony logowania
                     window.location.href = '/Account/Login';
 
                 }
                 if (data.success === true && data.result !== false) {
-                    // Pobierz wynik z odpowiedzi i przekaż go do akcji NewBet
                     var result = data.result;
                     window.location.href = '/Home/NewBet?BetId=' + result;
                 }
 
                 else {
-                    // Obsłuż sukces, np. wyświetl komunikat
                     console.log('Bet created successfully');
                 }
             })
             .catch(error => {
-                // Obsłuż błędy, np. wyświetl komunikat
                 console.error('Error creating bet:', error);
             });
     } else {
@@ -258,7 +249,6 @@ async function claimPoints() {
 
         if (response.ok) {
             console.log('Punkty zostały pomyślnie odebrane.');
-            // Odśwież stronę po odebraniu nagrody
             location.reload();
         } else {
             console.error('Nie udało się odebrać punktów.');
@@ -267,8 +257,3 @@ async function claimPoints() {
         console.error('Wystąpił błąd:', error);
     }
 }
-
-
-
-
-

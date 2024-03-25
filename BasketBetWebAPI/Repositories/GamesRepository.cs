@@ -43,7 +43,6 @@ namespace BasketBetWebAPI.Repositories
         public async Task<List<GameDto>> GetGamesByDate(DateOnly date)
         {
             List<Game> games = await _context.Games.Where(g => g.Date == date).ToListAsync();
-            //if(games == null || games.Count == 0)
             return _mapper.Map<List<GameDto>>(games);
         } 
         public async Task<int> UpdateGamesScores(List<GameDto> gameDtos)

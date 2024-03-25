@@ -112,7 +112,7 @@ main {
     opacity: 100%;
     background: #1D428A;
 }
-/*asds*/
+
 .white-btn span {
     font-weight: 600;
     font-size: 20px;
@@ -122,7 +122,7 @@ main {
     font-size: 15px;
     margin: 0;
 }
-/*asds*/
+
 .btn.btn.white-btn:hover {
     background: #2b5099;
 }
@@ -293,11 +293,10 @@ header {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 15px 15px;
     border-radius: 15px;
-    flex: 1; /* Zajmij dostêpn¹ przestrzeñ */
-    /* Ogranicz szerokoœæ, aby zostawiæ miejsce na container-blue */
+    flex: 1;
     box-sizing: border-box;
-    display: flex; /* Ustaw kontener na flexbox */
-    flex-direction: column; /* Ustaw kierunek flexbox na kolumnê */
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 .container-white-schedule {
@@ -305,11 +304,10 @@ header {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 15px 15px;
     border-radius: 15px;
-    flex: 1; /* Zajmij dostêpn¹ przestrzeñ */
-    /* Ogranicz szerokoœæ, aby zostawiæ miejsce na container-blue */
+    flex: 1;
     box-sizing: border-box;
-    display: flex; /* Ustaw kontener na flexbox */
-    flex-direction: column; /* Ustaw kierunek flexbox na kolumnê */
+    display: flex; 
+    flex-direction: column;
     gap: 20px;
     width: 100%;
     max-width: 1000px;
@@ -333,7 +331,7 @@ header {
 
 @media screen and (min-width: 1400px) {
     .container-white-schedule {
-        width: 1000px; /* Szerokoœæ 600px gdy ekran jest szerszy ni¿ 1000px */
+        width: 1000px;
     }
 }
 .summary-container-blue {
@@ -341,7 +339,7 @@ header {
     max-height: calc(100vh - 200px);
     background-color: rgba(43, 80, 153, 0.9);
     border-radius: 15px;
-    width: 400px; /* Sta³a szerokoœæ container-blue */
+    width: 400px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -353,7 +351,7 @@ header {
     height: calc(100vh - 200px);
     background-color: rgba(43, 80, 153, 0.9);
     border-radius: 15px;
-    width: 400px; /* Sta³a szerokoœæ container-blue */
+    width: 400px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -379,7 +377,7 @@ header {
 }
 
 .teams-column {
-    flex: 1; /* Zajmij ca³e dostêpne miejsce po lewej stronie */
+    flex: 1;
     margin-right: 10px;
 }
 
@@ -493,7 +491,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .container-blue-overflow {
     overflow: auto;
     padding: 10px;
-    max-height: calc(100vh - 200px); /* ustawiæ asdlkasjdk  */
+    max-height: calc(100vh - 200px);
 }
 
     .container-blue-overflow::-webkit-scrollbar {
@@ -514,7 +512,6 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: column;
     background-color: #375dab;
-    /*border-radius: inherit;*/
     padding: 10px 15px 10px 40px;
 }
 
@@ -526,7 +523,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
     .fl-con-header span {
-        flex: 1; /* Zajmij resztê dostêpnego miejsca */
+        flex: 1;
         display: flex;
         align-items: center;
     }
@@ -537,7 +534,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .content-winners-name {
-    flex-grow: 1; /* Zajmij dostêpne miejsce */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
@@ -573,7 +570,7 @@ input[type="number"]::-webkit-outer-spin-button {
     flex: 1;
     margin-bottom: 15px;
     box-sizing: border-box;
-    display: flex; /* Ustaw kontener na flexbox */
+    display: flex;
     flex-direction: column;
 }
 .container-white-footer {
@@ -601,6 +598,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .flex-content p {
     text-align: center;
 }
+@media screen and (max-width: 1250px) {
+    .nav-logo {
+        display: none;
+    }
+}
 @media (max-width: 1000px) {
     
     .container-wrapper {
@@ -609,13 +611,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
     .container-white {
         width: 100%;
-        max-width: none; /* Usuñ ograniczenie szerokoœci dla ma³ych ekranów */
+        max-width: none;
     }
 
     .container-blue {
         position: initial;
         width: 100%;
         height: auto;
+        margin-bottom: 20px;
     }
     .standings-table th{
         font-size: 12px;
@@ -633,9 +636,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 @media only screen and (max-width: 1100px) {
     
-    .nav-button {
-        display: none;
-    }
+    
 
     .nav-menu.responsive {
         top: 100px;
@@ -709,11 +710,16 @@ input[type="number"]::-webkit-outer-spin-button {
         flex-direction: column;
     }
 @media only screen and (max-width: 540px) {
+    .nav-button {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+    }
     .wrapper {
         min-height: 100vh;
     }
     .container-no-wrap {
-        overflow-x: auto; /* Dodaje suwak poziomy, jeœli zawartoœæ jest zbyt szeroka */
+        overflow-x: auto;
         white-space: nowrap;
     }
 

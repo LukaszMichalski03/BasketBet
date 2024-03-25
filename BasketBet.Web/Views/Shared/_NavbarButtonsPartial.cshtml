@@ -4,21 +4,21 @@
 @inject UserManager<AppUser> userManager
 
 @{
-    var currentUser = await userManager.GetUserAsync(User); // Pobieramy aktualnego użytkownika
+    var currentUser = await userManager.GetUserAsync(User);
 }
 
 <div class="nav-button">
     @if (signInManager.IsSignedIn(User))
     {
-        var lastClaimTime = currentUser.LastPointsClaimTime; // Pobieramy czas ostatniego odebrania punktów
-        var currentTime = DateTime.Now; // Aktualny czas serwera
-        var hoursSinceLastClaim = (currentTime - lastClaimTime).TotalHours; // Różnica w godzinach
+        var lastClaimTime = currentUser.LastPointsClaimTime; 
+        var currentTime = DateTime.Now;
+        var hoursSinceLastClaim = (currentTime - lastClaimTime).TotalHours;
 
-        if (hoursSinceLastClaim >= 3) // Sprawdzamy, czy minęły przynajmniej 3 godziny
+        if (hoursSinceLastClaim >= 3) 
         {
             <button class="btn signinButton m-0 p-0" onclick="claimPoints()">Collect Points</button>
         }
-        <p class="btn m-0">Points: @(currentUser != null ? currentUser.Points.ToString() : "0")</p> <!-- Wyświetlamy rzeczywistą ilość punktów zalogowanego użytkownika -->
+        <p class="btn m-0">Points: @(currentUser != null ? currentUser.Points.ToString() : "0")</p> 
         <a asp-controller="Account" asp-action="LogOut" class="btn signinButton">Log Out</a>
     }
 

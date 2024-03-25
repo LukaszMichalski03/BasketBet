@@ -56,23 +56,6 @@ namespace BasketBetWebAPI.Repositories
             if (team == null) throw new NotFoundException("Team not found");
             return _mapper.Map<TeamDto>(team);
         }
-        //private bool IsExactMatch(string searchTerm, string teamName)
-        //{
-        //    if (searchTerm.Length != teamName.Length)
-        //    {
-        //        return false;
-        //    }
-
-        //    for (int i = 0; i < searchTerm.Length; i++)
-        //    {
-        //        if (searchTerm[i] != teamName[i])
-        //        {
-        //            return false;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-
+        
     }
 }
