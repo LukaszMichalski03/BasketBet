@@ -24,7 +24,7 @@ namespace BasketBet.Web.Repositories
             DateOnly todayDateOnly = new DateOnly(today.Year, today.Month, today.Day);
 
             List<Game> games = await _context.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam)
-                .Where(g => g.Date == todayDateOnly)
+                .Where(g => g.Date == todayDateOnly && g.HomeTeamScore == null && g.AwayTeamScore == null)
                 .ToListAsync();
 
             List<GameVM> gameVMs = _mapper.Map<List<GameVM>>(games);

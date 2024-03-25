@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 
 namespace BasketBet.Web.Controllers
@@ -43,7 +44,7 @@ namespace BasketBet.Web.Controllers
             if (currentUser == null)
             {
                 // U¿ytkownik niezalogowany, zwróæ odpowiedŸ z b³êdem
-                return RedirectToAction("Login", "Account");
+                return Json(new { success = false, result = false });
             }
             int resultId = await _betRepository.CreateBet(betVM, currentUser);
 
@@ -72,6 +73,14 @@ namespace BasketBet.Web.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
+            Task.Run(async () =>
+            {
+                using (_client)
+                {
+                    HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + "Schedule", null);
+                }
+            });
+
             HomeVM vm = new HomeVM();
             vm.Matches = await _gamesRepository.GetRecentGames();
             if (currentUser != null) vm.LastPointsClaimTime = currentUser.LastPointsClaimTime;
@@ -85,31 +94,74 @@ namespace BasketBet.Web.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            DateTime yesterday = DateTime.Today.AddDays(-1);
+            string formattedDate = yesterday.ToString("yyyy-MM-dd");
+            
+            Task.Run(async () =>
+            {
+                using (_client)
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + $"Schedule/Scores/{formattedDate}", null);
+                        
+                    }
+                    catch(Exception ex)
+                    {
+                        
+                    }
+                    
+
+                }
+            });
+            await _betRepository.CheckBetsOutcome();
             var MyBets = await _betRepository.GetUsersBets(currentUser.Id);
             return View(MyBets);
         }
         public async Task<IActionResult> Standings()
         {
+            Task.Run(async () =>
+            {
+                using (_client)
+                {
+                    HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + "Table", null);
+                }
+            });
             var Standings = await _teamsRepository.GetTables();
             return View(Standings);
         }
         public async Task<IActionResult> LatestResults()
         {
+            DateTime yesterday = DateTime.Today.AddDays(-1);
+            string formattedDate = yesterday.ToString("yyyyMMdd");
+
+            Task.Run(async () =>
+            {
+                using (_client)
+                {
+                    HttpResponseMessage response = await _client.PutAsync(_client.BaseAddress + $"Schedule/Scores/{formattedDate}", null);
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        await _betRepository.CheckBetsOutcome();
+                    }
+                }
+            });
             var games = await _gamesRepository.GetLatestScores();
             return View(games);
         }
-        [HttpGet]
-        public IActionResult Table()
+        public async Task<IActionResult> Leaderboards()
         {
-            List<TeamVM> teams = new List<TeamVM>();
-            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "Table").Result;
-            if(response.IsSuccessStatusCode)
+            LeaderBoardsVM standingsVM = new LeaderBoardsVM();
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
             {
-                string data = response.Content.ReadAsStringAsync().Result;
-                teams = JsonConvert.DeserializeObject<List<TeamVM>>(data);
+                standingsVM = await _userRepository.GetLeaderboards();
             }
-            return View(teams);
+            else standingsVM = await _userRepository.GetLeaderboards(currentUser);
+
+            return View(standingsVM);
         }
+        
 
         public IActionResult Privacy()
         {

@@ -12,6 +12,7 @@ namespace BasketBet.Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
+
         public AccountController(SignInManager<AppUser> signIngManager, UserManager<AppUser> userManager, IMapper mapper)
         {
             _signInManager = signIngManager;

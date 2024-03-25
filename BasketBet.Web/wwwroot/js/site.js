@@ -205,7 +205,7 @@ function sendBetsToController() {
     var pointsValue = Number(pointsInput.value);
     var totalCourseValue = Number(totalCourseElement.textContent);
 
-    if (pointsValue > 0 && !isNaN(totalWinningValue) && !isNaN(pointsValue)) {
+    if (pointsValue > 0 && !isNaN(totalWinningValue) && !isNaN(pointsValue) && betsList.length > 0) {
         var dataToSend = {
             BetsList: betsList,
             TotalCourse: totalCourseValue,
@@ -220,27 +220,30 @@ function sendBetsToController() {
             },
             body: JSON.stringify(dataToSend)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                // Obsłuż odpowiedź z serwera
-                if (data.success) {
+                if (data.success === false) {
+                    // Przekieruj użytkownika do strony logowania
+                    window.location.href = '/Account/Login';
+
+                }
+                if (data.success === true && data.result !== false) {
                     // Pobierz wynik z odpowiedzi i przekaż go do akcji NewBet
                     var result = data.result;
                     window.location.href = '/Home/NewBet?BetId=' + result;
-                } else {
-                    console.log('Wystąpił błąd podczas przetwarzania żądania.');
+                }
+
+                else {
+                    // Obsłuż sukces, np. wyświetl komunikat
+                    console.log('Bet created successfully');
                 }
             })
             .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+                // Obsłuż błędy, np. wyświetl komunikat
+                console.error('Error creating bet:', error);
             });
     } else {
-        console.log('Wartość punktów musi być większa niż 0 lub niepoprawne wartości dla totalWinningValue lub pointsValue.');
+        console.log('Wartość punktów musi być większa niż 0 lub niepoprawne wartości');
     }
 }
 

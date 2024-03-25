@@ -46,7 +46,7 @@ namespace BasketBetWebAPI.Repositories
             //if(games == null || games.Count == 0)
             return _mapper.Map<List<GameDto>>(games);
         } 
-        public async Task UpdateGamesScores(List<GameDto> gameDtos)
+        public async Task<int> UpdateGamesScores(List<GameDto> gameDtos)
         {
             List<Game> games = await _context.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam).Where(g => g.Date == gameDtos[0].Date).ToListAsync();
             foreach(var gameDto in  gameDtos)
@@ -74,7 +74,8 @@ namespace BasketBetWebAPI.Repositories
 
                 });
             }
-            await _context.SaveChangesAsync();
+            int result = await _context.SaveChangesAsync();
+            return result;
         }
 
     }

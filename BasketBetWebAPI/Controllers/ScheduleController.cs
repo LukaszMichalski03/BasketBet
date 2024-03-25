@@ -31,7 +31,8 @@ namespace BasketBetWebAPI.Controllers
         [HttpPut("scores/{date}")]
         public async Task<IActionResult> UpdateScores([FromRoute] DateOnly date)
         {
-            await _scrapper.UpdateGamesResults(date);
+            bool result = await _scrapper.UpdateGamesResults(date);
+            if (result) return Ok();
             return NoContent();
         }
 

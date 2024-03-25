@@ -1,0 +1,46 @@
+﻿@using BasketBet.Web.ViewModels
+@model LeaderBoardsVM
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@if(Model.CurrentUser != null)
+{
+    <div class="user-pos-container">
+        <h2>Your Position: <span>@Model.CurrentUserPosition</span> </h2>
+        <h2>Name: <span>@Model.CurrentUser.Name</span></h2>
+        <h2>Points: <span>@Model.CurrentUser.Points</span></h2>
+        <h2>Bet Success Rate: <span>@Model.CurrentUser.BetSuccessRate %</span></h2>
+    </div>
+}
+
+<div class="container-white container-no-wrap">
+    <table class="standings-table">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Points</th>
+                <th>Bet Success Rate</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var position = 1;
+            }
+            @foreach (var team in Model.Leaders)
+            {
+                <tr>
+                    <td>@position</td>
+                    <td>@team.Name</td>
+                    <td>@team.Points</td>
+                    <td>@team.BetSuccessRate %</td>
+                    
+                </tr>
+                position++;
+            }
+        </tbody>
+    </table>
+</div>

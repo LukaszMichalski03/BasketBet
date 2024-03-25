@@ -86,6 +86,58 @@ namespace BasketBet.Web.Repositories
 
             return betVMs;
         }
+        public async Task CheckBetsOutcome()
+        {
+            List<Bet> betsInProcess = await _context.Bets.Include(b => b.Games).Where(b => b.BetOutcome == null).ToListAsync();
+            List<BetItem> betItemsInProcess = await _context.BetItems
+                .Include(bi => bi.Game)
+                .Where(bi => bi.Game.HomeTeamScore != null && bi.Game.AwayTeamScore != null)
+                .ToListAsync();
+
+            betItemsInProcess = betItemsInProcess
+                .Where(bi => betsInProcess.Any(b => b.Id == bi.BetId))
+                .ToList();
+
+            foreach (var betItem in betItemsInProcess)
+            {
+                if(betItem.SelectedTeamId == betItem.Game.AwayTeamId
+                    && betItem.Game.AwayTeamScore > betItem.Game.HomeTeamScore)
+                {
+                    betItem.BetItemOutcome = true;
+                }
+                else if (betItem.SelectedTeamId == betItem.Game.HomeTeamId
+                    && betItem.Game.AwayTeamScore < betItem.Game.HomeTeamScore)
+                {
+                    betItem.BetItemOutcome = true;
+                }
+                else betItem.BetItemOutcome = false;
+            }
+            await _context.SaveChangesAsync();
+            foreach (var bet in betsInProcess)
+            {
+                var betItems = await _context.BetItems.Where(bi => bi.BetId == bet.Id).ToListAsync();
+
+                bool allOutcomesTrue = betItems.All(bi => bi.BetItemOutcome == true);
+                bool anyOutcomeFalse = betItems.Any(bi => bi.BetItemOutcome == false);
+
+                if (allOutcomesTrue)
+                {
+                    if (bet.BetOutcome != true)
+                    {
+                        bet.BetOutcome = true;
+                        var user = _context.Users.Where(u => u.Id == bet.AppUserId).FirstOrDefault();
+                        user.Points += bet.PotentialWinning;
+                    }
+                    
+                }
+                else if (anyOutcomeFalse)
+                {
+                    bet.BetOutcome = false;
+                }
+            }
+            await _context.SaveChangesAsync();
+
+        }
 
     }
 }

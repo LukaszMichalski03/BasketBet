@@ -5,3 +5,20 @@
 *@
 @{
 }
+<div class="container-white-schedule">
+    @foreach (var game in Model)
+    {
+        <div class="flex-container">
+            <span>@game.Date</span>
+            <h4>@game.HomeTeamVM.Name: <span class="fw-bolder">@game.HomeTeamScore - @game.AwayTeamScore</span>  :@game.AwayTeamVM.Name</h4>
+            @if(game.HomeTeamScore > game.AwayTeamScore)
+            {
+                <h3 class="color-green">@game.HomeTeamVM.Name</h3>
+            }
+            else
+            {
+                <h3 class="color-green">@game.AwayTeamVM.Name</h3>
+            }
+        </div>
+    }
+</div>

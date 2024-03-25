@@ -271,8 +271,9 @@ namespace BasketBetWebAPI.Services
             await _gamesRepository.UpdateGames(gameDtos);
         }
 
-        public async Task UpdateGamesResults(DateOnly date)
+        public async Task<bool> UpdateGamesResults(DateOnly date)
         {
+            int result;
             gameDtos.Clear();
             string formattedDate = date.ToString("yyyyMMdd");
             //string UrlNotUpd = "https://www.espn.co.uk/nba/scoreboard/_/date/20240216";
@@ -319,9 +320,13 @@ namespace BasketBetWebAPI.Services
                         );
 
                 }
-                await _gamesRepository.UpdateGamesScores(gameDtos);
+                
+                
             }
-            
+            result = await _gamesRepository.UpdateGamesScores(gameDtos);
+            return result> 0;
+
+
         }
         private double[] CreateOdds(double winPercentageTeam1, double winPercentageTeam2)
         {

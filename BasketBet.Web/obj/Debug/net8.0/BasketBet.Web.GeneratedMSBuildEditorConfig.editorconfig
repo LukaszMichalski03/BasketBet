@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMYXRlc3RSZXN1bHRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Łukasz/Desktop/projekty/c\#/BasketBet/BasketBet.Web/Views/Home/Leaderboards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMZWFkZXJib2FyZHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Łukasz/Desktop/projekty/c\#/BasketBet/BasketBet.Web/Views/Home/MyBets.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNeUJldHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,10 +52,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Łukasz/Desktop/projekty/c\#/BasketBet/BasketBet.Web/Views/Home/Standings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGFuZGluZ3MuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Łukasz/Desktop/projekty/c\#/BasketBet/BasketBet.Web/Views/Home/Table.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Łukasz/Desktop/projekty/c\#/BasketBet/BasketBet.Web/Views/Shared/Error.cshtml]

@@ -12,15 +12,16 @@
     {
         var lastClaimTime = currentUser.LastPointsClaimTime; // Pobieramy czas ostatniego odebrania punktów
         var currentTime = DateTime.Now; // Aktualny czas serwera
-        var minutesSinceLastClaim = (currentTime - lastClaimTime).TotalMinutes; // Różnica w minutach
+        var hoursSinceLastClaim = (currentTime - lastClaimTime).TotalHours; // Różnica w godzinach
 
-        if (minutesSinceLastClaim >= 1) // Sprawdzamy, czy minęła przynajmniej 1 minuta
+        if (hoursSinceLastClaim >= 3) // Sprawdzamy, czy minęły przynajmniej 3 godziny
         {
             <button class="btn signinButton m-0 p-0" onclick="claimPoints()">Collect Points</button>
         }
         <p class="btn m-0">Points: @(currentUser != null ? currentUser.Points.ToString() : "0")</p> <!-- Wyświetlamy rzeczywistą ilość punktów zalogowanego użytkownika -->
         <a asp-controller="Account" asp-action="LogOut" class="btn signinButton">Log Out</a>
     }
+
     else
     {
         <a asp-controller="Account" asp-action="Login" class="btn signinButton">Sign In</a>
