@@ -10,10 +10,13 @@ namespace BasketBet.Web.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-
+        private readonly HttpClient _client;
+        Uri baseAddress = new Uri("https://localhost:7041");
 
         public AccountController(SignInManager<AppUser> signIngManager, UserManager<AppUser> userManager)
         {
+            _client = new HttpClient();
+            _client.BaseAddress = baseAddress;
             _signInManager = signIngManager;
             _userManager = userManager;
         }
@@ -39,6 +42,13 @@ namespace BasketBet.Web.Controllers
 
                     if (result.Succeeded)
                     {
+                        await Task.WhenAll(
+                        SendApiRequest("Schedule"),
+                        SendApiRequest($"Schedule/{DateTime.Today.AddDays(-7):yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today:yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today.AddDays(-1):yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today.AddDays(-2):yyyy-MM-dd}")
+                    );
                         return RedirectToAction("Index", "Home");
                     }
                     ModelState.AddModelError("", "Invalid Password");
@@ -74,9 +84,17 @@ namespace BasketBet.Web.Controllers
                     
                 };
                 var result = await _userManager.CreateAsync(user, registerVM.Password!);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
+                    // Wykonaj zapytania do API w tle
+                    await Task.WhenAll(
+                        SendApiRequest("Schedule"),
+                        SendApiRequest($"Schedule/{DateTime.Today.AddDays(-7):yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today:yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today.AddDays(-1):yyyy-MM-dd}"),
+                        SendApiRequest($"Schedule/Scores/{DateTime.Today.AddDays(-2):yyyy-MM-dd}")
+                    );
                     return RedirectToAction("Index", "Home");
                 }
                 foreach (var error in result.Errors)
@@ -91,6 +109,16 @@ namespace BasketBet.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+        private async Task SendApiRequest(string endpoint)
+        {
+            using (var client = new HttpClient())
+            {
+                using (var response = await client.PutAsync(_client.BaseAddress + endpoint, null))
+                {
+                    
+                }
+            }
         }
     }
 }
