@@ -114,7 +114,7 @@ namespace BasketBetWebAPI.Services
                 if (currentElement.Name == "div")
                 {
                     var spanIndex = j - 1;
-                    if (spanIndex >= 0 && children[spanIndex].Name == "span")
+                    if (spanIndex >= 0 && ( children[spanIndex].Name == "span" || children[spanIndex].Name == "h2"))
                     {
                         var spanText = children[spanIndex].InnerText;
                         captions.Add(spanText);
@@ -128,6 +128,8 @@ namespace BasketBetWebAPI.Services
                 }
             }
 
+
+            Thread.Sleep(10);
             for (int i = 0; i < tables.Count; i++)
             {
                 if (tables[i].InnerText == "No games scheduled") continue;
@@ -174,6 +176,7 @@ namespace BasketBetWebAPI.Services
 
 
             }
+           
             await _gamesRepository.UpdateGames(gameDtos);
         }
 
